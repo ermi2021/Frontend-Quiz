@@ -28,8 +28,11 @@
         </div>
 
         <!-- timer container -->
-        <div class="bg-white shadow-lg p-2 rounded-full w-full h-5">
-          <div class="bg-blue-700 rounded-full w-11/12 h-full"></div>
+        <div class="bg-white shadow-lg p-2 rounded-full w-full h-6">
+          <div class="bg-blue-700 rounded-full w-11/12 h-full"
+           
+           :style="`width:${timer}%`"
+          ></div>
         </div>
 
         <!-- question container -->
@@ -121,7 +124,7 @@ export default {
   setup() {
     //data
     let canClick = true;
-
+    let timer = ref(100);
     let questionCounter = ref(0);
     let score = ref(0)
 
@@ -162,6 +165,7 @@ export default {
       //check if there are more questions to load
       if (questions.length > questionCounter.value) {
         // load questions
+        timer.value=100;
         currentQuestion.value = questions[questionCounter.value];
         console.log("Current question", currentQuestion.question);
         questionCounter.value++;
@@ -200,6 +204,8 @@ export default {
           divContainer.classList.add("option-wrong");
           divContainer.classList.remove("option-default");
         }
+
+         timer.value = 100
          canClick=false
         //Goto next question
         clearSelected(divContainer);
@@ -211,13 +217,27 @@ export default {
       
     };
 
+    const countDownTimer = function(){
+      let interval = setInterval(()=>{
+        if(timer.value>0){
+          timer.value--;
+        }else{
+          console.log("Timer is up");
+           clearInterval(interval);
+        }
+       
+      }, 150)
+    }
+
     //lifecycle hooks
     onMounted(() => {
       loadQuestion();
+      countDownTimer();
     });
 
     // return
     return {
+      timer,
       currentQuestion,
       questions,
       questionCounter,
