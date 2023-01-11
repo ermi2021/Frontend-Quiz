@@ -43,7 +43,35 @@
       
       
         <!-- option container -->
-        <div class="bg-gray-100 option-correct p-2 neumorph-1 rounded-lg mb-3 relative">
+        <div class="option-default bg-gray-100 p-2 neumorph-1 rounded-lg mb-3 relative">
+          <div
+            class="
+              bg-blue-500
+              p-1
+              transform
+              rotate-45
+              rounded-md
+              w-10
+              h-10
+              text-white
+              font-bold
+              absolute
+              right-0
+              top-0
+              shadow-md
+            "
+          >
+            <p class="transform -rotate-45">+10</p>
+          </div>
+          <div class=" rounded-lg font-bold flex p-2">
+            <!-- option id -->
+            <div class="bg-gray-400 p-3 rounded-lg">C</div>
+            <div class="flex items-center pl-6">Thor</div>
+          </div>
+        </div>
+        
+        <!-- option container -->
+        <div class="option-wrong bg-gray-100  p-2 neumorph-1 rounded-lg mb-3 relative">
           <div
             class="
               bg-blue-500
@@ -70,6 +98,61 @@
           </div>
         </div>
 
+         <!-- option container -->
+         <div class="bg-gray-100 option-correct p-2 neumorph-1 rounded-lg mb-3 relative">
+          <div
+            class="
+              bg-blue-500
+              p-1
+              transform
+              rotate-45
+              rounded-md
+              w-10
+              h-10
+              text-white
+              font-bold
+              absolute
+              right-0
+              top-0
+              shadow-md
+            "
+          >
+            <p class="transform -rotate-45">+10</p>
+          </div>
+          <div class=" rounded-lg font-bold flex p-2">
+            <!-- option id -->
+            <div class="bg-gray-400 p-3 rounded-lg">C</div>
+            <div class="flex items-center pl-6">Thor</div>
+          </div>
+        </div>
+
+         <!-- option container -->
+         <div class="bg-gray-100 option-default p-2 neumorph-1 rounded-lg mb-3 relative">
+          <div
+            class="
+              bg-blue-500
+              p-1
+              transform
+              rotate-45
+              rounded-md
+              w-10
+              h-10
+              text-white
+              font-bold
+              absolute
+              right-0
+              top-0
+              shadow-md
+            "
+          >
+            <p class="transform -rotate-45">+10</p>
+          </div>
+          <div class=" rounded-lg font-bold flex p-2">
+            <!-- option id -->
+            <div class="bg-gray-400 p-3 rounded-lg">C</div>
+            <div class="flex items-center pl-6">Thor</div>
+          </div>
+        </div>
       
        
       </div>
@@ -96,3 +179,38 @@
   border-radius: 25px;
 }
 </style>
+
+<script>
+import {ref} from 'vue'
+  export default {
+    setup(){
+      const currentQuestion = ref({
+        question:'',
+        answer:1,
+        choices:[]
+      })
+
+      const questions=[{
+          question: "Lorem ipsum dolor sit amet consectetur adipisicing elit?",
+          answer:1,
+          choices:["Option 1", "Option 2", "Option 3", "Option 4"]
+      },
+      {
+          question: "Question 2 Lorem ipsum dolor sit amet consectetur adipisicing elit?",
+          answer:3,
+          choices:["Option 1", "Option 2", "Option 3", "Option 4"]
+      },
+      {
+          question: "Question 3 Lorem ipsum dolor sit amet consectetur adipisicing elit?",
+          answer:4,
+          choices:["Option 1", "Option 2", "Option 3", "Option 4"]
+      },
+      {
+          question: "Question 4 Lorem ipsum dolor sit amet consectetur adipisicing elit?",
+          answer:2,
+          choices:["Option 1", "Option 2", "Option 3", "Option 4"]
+      }
+    ]
+    }
+  }
+</script>
