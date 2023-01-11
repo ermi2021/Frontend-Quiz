@@ -138,45 +138,25 @@ export default {
     let score = ref(0);
 
     const currentQuestion = ref({
-      question: "",
+      
       answer: 1,
+
       choices: [],
+      question: "",
     });
 
-    const questions = [
-      {
-        question: "Lorem ipsum dolor sit amet consectetur adipisicing elit?",
-        answer: 1,
-        choices: ["Option 1", "Option 2", "Option 3", "Option 4"],
-      },
-      {
-        question:
-          "Question 2 Lorem ipsum dolor sit amet consectetur adipisicing elit?",
-        answer: 3,
-        choices: ["Option 1", "Option 2", "Option 3", "Option 4"],
-      },
-      {
-        question:
-          "Question 3 Lorem ipsum dolor sit amet consectetur adipisicing elit?",
-        answer: 4,
-        choices: ["Option 1", "Option 2", "Option 3", "Option 4"],
-      },
-      {
-        question:
-          "Question 4 Lorem ipsum dolor sit amet consectetur adipisicing elit?",
-        answer: 2,
-        choices: ["Option 1", "Option 2", "Option 3", "Option 4"],
-      },
-    ];
+    const questions = ref([]);
 
     const loadQuestion = () => {
       canClick = true;
+      
       //check if there are more questions to load
-      if (questions.length > questionCounter.value) {
+      if (questions.value.length > questionCounter.value) {
         // load questions
         timer.value = 100;
-        countDownTimer();
-        currentQuestion.value = questions[questionCounter.value];
+        
+        currentQuestion.value = questions.value[questionCounter.value];
+        console.log(currentQuestion.value);
 
         questionCounter.value++;
       } else {
@@ -236,13 +216,46 @@ export default {
     };
 
     const fetchQuestionsFromApi = async function () {
+      
+     fetch("https://opentdb.com/api.php?amount=10&category=18&type=multiple")
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          // map json
+          const newQuestions = data.results.map((apiQuestion) => {
+           
+            const arrangedQuestion = {
+              question: apiQuestion.question,
+              choices: [],
+              answer: "",
+            };
+
+            const choices = apiQuestion.incorrect_answers;
+
+            arrangedQuestion.answer = Math.floor(Math.random() * 3 + 1);
+            
+            choices.splice(
+              arrangedQuestion.answer,
+              0,
+              apiQuestion.correct_answer
+            );
+
+            arrangedQuestion.choices = choices;
+         
+            return arrangedQuestion;
+          });
+         
+         questions.value = newQuestions;
        
+         loadQuestion();
+         countDownTimer();
+        });
     };
 
     //lifecycle hooks
     onMounted(() => {
-      loadQuestion();
-      countDownTimer();
+    
       fetchQuestionsFromApi();
     });
 
