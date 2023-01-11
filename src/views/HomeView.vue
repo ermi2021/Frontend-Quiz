@@ -88,8 +88,8 @@
               </div>
               <div class="rounded-lg font-bold flex p-2">
                 <!-- option id -->
-                <div class="bg-gray-400 p-3 rounded-lg">{{item}}</div>
-                <div class="flex items-center pl-6">{{choice}}</div>
+                <div class="bg-gray-400 p-3 rounded-lg">{{ item }}</div>
+                <div class="flex items-center pl-6">{{ choice }}</div>
               </div>
             </div>
           </div>
@@ -119,8 +119,6 @@
 import { onMounted, ref } from "vue";
 export default {
   setup() {
-
-   
     let questionCounter = ref(0);
 
     const currentQuestion = ref({
@@ -155,40 +153,64 @@ export default {
       },
     ];
 
-    const onQuizStart = () => {
-      currentQuestion.value = questions[questionCounter.value];
+    const loadQuestion = () => {
+      //check if there are more questions to load
+      if (questions.length > questionCounter.value) {
+        // load questions
+        currentQuestion.value = questions[questionCounter.value];
+        console.log("Current question", currentQuestion.question);
+        questionCounter.value++;
+      } else {
+        //no more questions
+        console.log("Out of questions");
+      }
     };
 
     //methods
     let itemRef = [];
-    const optionChosen = (element) =>{
-      if(element){
+    const optionChosen = (element) => {
+      if (element) {
         itemRef.push(element);
       }
-    }
+    };
 
+    const clearSelected = (divSelected) => {
+      setTimeout(() => {
+        divSelected.classList.remove("option-correct");
+        divSelected.classList.remove("option-wrong");
+        divSelected.classList.add("option-default");
+        loadQuestion();
+      }, 1000);
+    };
     const onOptionClicked = (choice, item) => {
       const divContainer = itemRef[item];
       const optionId = item++;
-
-      if(currentQuestion.value.answer == optionId) {
-        console.log("You are correct!")
-        divContainer.classList.add('option-correct');
-        divContainer.classList.remove('option-default');
-      }else{
-        divContainer.classList.add('option-wrong');
-        divContainer.classList.remove('option-default');
+      if (currentQuestion.value.answer == optionId) {
+        divContainer.classList.add("option-correct");
+        divContainer.classList.remove("option-default");
+      } else {
+        divContainer.classList.add("option-wrong");
+        divContainer.classList.remove("option-default");
       }
-     
+
+      //Goto next question
+      clearSelected(divContainer);
     };
 
     //lifecycle hooks
     onMounted(() => {
-      onQuizStart();
+      loadQuestion();
     });
 
     // return
-    return { currentQuestion, questions, questionCounter, onQuizStart, onOptionClicked , optionChosen};
+    return {
+      currentQuestion,
+      questions,
+      questionCounter,
+      loadQuestion,
+      onOptionClicked,
+      optionChosen,
+    };
   },
 };
 </script>
