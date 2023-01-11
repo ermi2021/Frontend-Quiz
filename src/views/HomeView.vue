@@ -1,5 +1,8 @@
 <template>
+  <quiz-completed-overlay v-if="endofQuiz"></quiz-completed-overlay>
   <main class="flex h-screen items-center justify-center bg-gray-100">
+    <!-- Quiz overlay -->
+
     <!-- quiz container -->
     <div
       class="
@@ -24,14 +27,14 @@
       <div class="relative z-20">
         <div class="text-right text-gray-800 mt-4">
           <p class="text-sm leading-1">Score</p>
-          <p class="font-bold">{{score}}</p>
+          <p class="font-bold">{{ score }}</p>
         </div>
 
         <!-- timer container -->
         <div class="bg-white shadow-lg p-2 rounded-full w-full h-6">
-          <div class="bg-blue-700 rounded-full w-11/12 h-full"
-           
-           :style="`width:${timer}%`"
+          <div
+            class="bg-blue-700 rounded-full w-11/12 h-full"
+            :style="`width:${timer}%`"
           ></div>
         </div>
 
@@ -101,7 +104,9 @@
         <!-- progress indicator container-->
         <div class="mt-8 text-center">
           <div class="h-1 w-12 bg-gray-800 rounded-full mx-auto"></div>
-          <p class="font-bold text-gray-800">{{questionCounter}}/{{ questions.length }}</p>
+          <p class="font-bold text-gray-800">
+            {{ questionCounter }}/{{ questions.length }}
+          </p>
         </div>
       </div>
       <!-- score container -->
@@ -120,13 +125,17 @@
 
 <script>
 import { onMounted, ref } from "vue";
+
+import QuizCompletedOverlay from "../components/QuizCompletedOverlay.vue";
 export default {
+  components: { QuizCompletedOverlay },
   setup() {
     //data
     let canClick = true;
     let timer = ref(100);
+    let endofQuiz = ref(false);
     let questionCounter = ref(0);
-    let score = ref(0)
+    let score = ref(0);
 
     const currentQuestion = ref({
       question: "",
@@ -161,17 +170,18 @@ export default {
     ];
 
     const loadQuestion = () => {
-      canClick=true;
+      canClick = true;
       //check if there are more questions to load
       if (questions.length > questionCounter.value) {
         // load questions
-        timer.value=100;
+        timer.value = 100;
+        countDownTimer();
         currentQuestion.value = questions[questionCounter.value];
-        console.log("Current question", currentQuestion.question);
+
         questionCounter.value++;
       } else {
         //no more questions
-        console.log("Out of questions");
+        endofQuiz.value = true;
       }
     };
 
@@ -193,7 +203,6 @@ export default {
     };
     const onOptionClicked = (choice, item) => {
       if (canClick) {
-     
         const divContainer = itemRef[item];
         const optionId = item++;
         if (currentQuestion.value.answer == optionId) {
@@ -205,34 +214,36 @@ export default {
           divContainer.classList.remove("option-default");
         }
 
-         timer.value = 100
-         canClick=false
+        timer.value = 100;
+        canClick = false;
         //Goto next question
         clearSelected(divContainer);
       } else {
         // Cant select option
         console.log("cant select an option");
       }
-
-      
     };
 
-    const countDownTimer = function(){
-      let interval = setInterval(()=>{
-        if(timer.value>0){
+    const countDownTimer = function () {
+      let interval = setInterval(() => {
+        if (timer.value > 0) {
           timer.value--;
-        }else{
-          console.log("Timer is up");
-           clearInterval(interval);
+        } else {
+          loadQuestion();
+          clearInterval(interval);
         }
+      }, 150);
+    };
+
+    const fetchQuestionsFromApi = async function () {
        
-      }, 150)
-    }
+    };
 
     //lifecycle hooks
     onMounted(() => {
       loadQuestion();
       countDownTimer();
+      fetchQuestionsFromApi();
     });
 
     // return
@@ -244,8 +255,12 @@ export default {
       loadQuestion,
       onOptionClicked,
       optionChosen,
-      score
+      score,
+      endofQuiz,
     };
+  },
+  components: {
+    QuizCompletedOverlay,
   },
 };
 </script>
