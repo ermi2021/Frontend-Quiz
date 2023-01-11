@@ -24,7 +24,7 @@
       <div class="relative z-20">
         <div class="text-right text-gray-800 mt-4">
           <p class="text-sm leading-1">Score</p>
-          <p class="font-bold">60</p>
+          <p class="font-bold">{{score}}</p>
         </div>
 
         <!-- timer container -->
@@ -98,7 +98,7 @@
         <!-- progress indicator container-->
         <div class="mt-8 text-center">
           <div class="h-1 w-12 bg-gray-800 rounded-full mx-auto"></div>
-          <p class="font-bold text-gray-800">2/10</p>
+          <p class="font-bold text-gray-800">{{questionCounter}}/{{ questions.length }}</p>
         </div>
       </div>
       <!-- score container -->
@@ -119,7 +119,11 @@
 import { onMounted, ref } from "vue";
 export default {
   setup() {
+    //data
+    let canClick = true;
+
     let questionCounter = ref(0);
+    let score = ref(0)
 
     const currentQuestion = ref({
       question: "",
@@ -154,6 +158,7 @@ export default {
     ];
 
     const loadQuestion = () => {
+      canClick=true;
       //check if there are more questions to load
       if (questions.length > questionCounter.value) {
         // load questions
@@ -183,18 +188,27 @@ export default {
       }, 1000);
     };
     const onOptionClicked = (choice, item) => {
-      const divContainer = itemRef[item];
-      const optionId = item++;
-      if (currentQuestion.value.answer == optionId) {
-        divContainer.classList.add("option-correct");
-        divContainer.classList.remove("option-default");
+      if (canClick) {
+     
+        const divContainer = itemRef[item];
+        const optionId = item++;
+        if (currentQuestion.value.answer == optionId) {
+          score.value += 10;
+          divContainer.classList.add("option-correct");
+          divContainer.classList.remove("option-default");
+        } else {
+          divContainer.classList.add("option-wrong");
+          divContainer.classList.remove("option-default");
+        }
+         canClick=false
+        //Goto next question
+        clearSelected(divContainer);
       } else {
-        divContainer.classList.add("option-wrong");
-        divContainer.classList.remove("option-default");
+        // Cant select option
+        console.log("cant select an option");
       }
 
-      //Goto next question
-      clearSelected(divContainer);
+      
     };
 
     //lifecycle hooks
@@ -210,6 +224,7 @@ export default {
       loadQuestion,
       onOptionClicked,
       optionChosen,
+      score
     };
   },
 };
