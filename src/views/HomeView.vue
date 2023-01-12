@@ -1,5 +1,9 @@
 <template>
-  <quiz-completed-overlay v-if="endofQuiz"></quiz-completed-overlay>
+  <quiz-completed-overlay
+    v-if="endofQuiz"
+    :percent="percentageScore"
+    @restartQuiz="onQuizStart"
+  ></quiz-completed-overlay>
   <main class="flex h-screen items-center justify-center bg-gray-100">
     <!-- Quiz overlay -->
 
@@ -138,23 +142,23 @@ export default {
     let score = ref(0);
 
     const currentQuestion = ref({
-      
       answer: 1,
-
       choices: [],
       question: "",
     });
+
+    let percentageScore = ref(0);
 
     const questions = ref([]);
 
     const loadQuestion = () => {
       canClick = true;
-      
+
       //check if there are more questions to load
       if (questions.value.length > questionCounter.value) {
         // load questions
         timer.value = 100;
-        
+
         currentQuestion.value = questions.value[questionCounter.value];
         console.log(currentQuestion.value);
 
@@ -162,6 +166,7 @@ export default {
       } else {
         //no more questions
         endofQuiz.value = true;
+        onQuizEnd();
       }
     };
 
@@ -209,22 +214,20 @@ export default {
         if (timer.value > 0) {
           timer.value--;
         } else {
-          loadQuestion();
+          onQuizEnd();
           clearInterval(interval);
         }
       }, 150);
     };
 
     const fetchQuestionsFromApi = async function () {
-      
-     fetch("https://opentdb.com/api.php?amount=10&category=18&type=multiple")
+      fetch("https://opentdb.com/api.php?amount=10&category=18&type=multiple")
         .then((res) => {
           return res.json();
         })
         .then((data) => {
           // map json
           const newQuestions = data.results.map((apiQuestion) => {
-           
             const arrangedQuestion = {
               question: apiQuestion.question,
               choices: [],
@@ -234,7 +237,7 @@ export default {
             const choices = apiQuestion.incorrect_answers;
 
             arrangedQuestion.answer = Math.floor(Math.random() * 3 + 1);
-            
+
             choices.splice(
               arrangedQuestion.answer,
               0,
@@ -242,20 +245,51 @@ export default {
             );
 
             arrangedQuestion.choices = choices;
-         
+
             return arrangedQuestion;
           });
-         
-         questions.value = newQuestions;
-       
-         loadQuestion();
-         countDownTimer();
+
+          questions.value = newQuestions;
+
+          loadQuestion();
+          countDownTimer();
         });
+    };
+
+    const onQuizEnd = function () {
+      // calculate the score
+      percentageScore.value = (score.value / 100) * 100;
+
+      //stop timer
+      timer.value = 0;
+
+      //show overlay
+      endofQuiz.value = true;
+    };
+
+    const onQuizStart = function () {
+      //set default values
+      canClick = true;
+      timer.value = 100;
+      endofQuiz.value = false;
+      questionCounter.value = 0;
+      score.value = 0;
+      currentQuestion.value = {
+        answer: 1,
+        choices: [],
+        question: "",
+      };
+
+      percentageScore.value =0;
+
+      questions.value = [];
+
+      //fetch questions from server
+      fetchQuestionsFromApi();
     };
 
     //lifecycle hooks
     onMounted(() => {
-    
       fetchQuestionsFromApi();
     });
 
@@ -270,6 +304,9 @@ export default {
       optionChosen,
       score,
       endofQuiz,
+      onQuizEnd,
+      percentageScore,
+      onQuizStart
     };
   },
   components: {
