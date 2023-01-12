@@ -56,7 +56,7 @@
           "
         >
           <div class="bg-white p-5">
-            {{ currentQuestion.question }}
+            {{ formattedQuestion }}
           </div>
         </div>
 
@@ -309,6 +309,31 @@ export default {
       onQuizStart
     };
   },
+
+  computed:{
+    formattedQuestion() {
+      let entities = {
+        amp: "&",
+        apos: "'",
+        "#x27": "'",
+        "#x2F": "/",
+        "#39": "'",
+        "#47": "/",
+        lt: "<",
+        gt: ">",
+        nbsp: " ",
+        quot: '"',
+        "#039": "'",
+      };
+      return this.currentQuestion.question.replace(/&([^;]+);/gm, function(
+        match,
+        entity
+      ) {
+        return entities[entity] || match;
+      });
+    },
+  },
+
   components: {
     QuizCompletedOverlay,
   },
