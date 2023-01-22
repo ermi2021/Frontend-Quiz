@@ -1,11 +1,15 @@
 
   const api= [
         {
-            catagory:'film',
+            catagory:'Film',
             url:'https://opentdb.com/api.php?amount=10&category=11'
         },
         {
-            catagory:'general_knowledge',
+            catagory:'Books',
+            url:'https://opentdb.com/api.php?amount=10&category=10&type=multiple'
+        },
+        {
+            catagory:'General Knowledge',
             url:'https://opentdb.com/api.php?amount=10&category=9&type=multiple'
         },
         {
