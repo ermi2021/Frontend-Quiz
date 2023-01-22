@@ -21,13 +21,14 @@
         py-6
       "
     >
+    <h1>{{ catagoryStore.selectedCatagory.url }}</h1>
       <img
         src="../assets/images/abstract.svg"
         alt=""
         class="absolute -top-10 left-0 object-none"
       />
     
-<h1>{{ api }}</h1>
+
       <!-- contents -->
       <div class="relative z-20">
         <div class="text-right text-gray-800 mt-4">
@@ -131,23 +132,17 @@
 <script>
 import { onMounted, ref, toRefs } from "vue";
 import { useRoute } from "vue-router";
-
+import { useCatagoryStore } from "../stores/catagoryStore";
 import QuizCompletedOverlay from "../components/QuizCompletedOverlay.vue";
 import router from '../router';
 import { defineProps, reactive } from "vue";
 export default {
-  props:{
-    api:{
-      type:String,
-      default:"https://opentdb.com/api.php?amount=10&category=10&type=multiple",
-      required:false
-    }
-  },
+  
 
   components: { QuizCompletedOverlay },
   setup() {
     //data
-   
+    const catagoryStore = useCatagoryStore();
     const route = useRoute();
     let canClick = true;
     let timer = ref(100);
@@ -235,8 +230,8 @@ export default {
     };
 
     const fetchQuestionsFromApi = async function () {
-      console.log(this.api);
-      fetch('https://opentdb.com/api.php?amount=10&category=9&type=multiple')
+    
+      fetch(catagoryStore.selectedCatagory.url)
         .then((res) => {
           return res.json();
         })
@@ -325,7 +320,8 @@ export default {
       endofQuiz,
       onQuizEnd,
       percentageScore,
-      onQuizStart
+      onQuizStart,
+      catagoryStore
     };
   },
 

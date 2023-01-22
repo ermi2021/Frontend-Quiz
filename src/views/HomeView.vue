@@ -1,23 +1,29 @@
 <template>
   <main>
-   <h1>Select catagory</h1>
-    <div v-for="catagory in catagories" :key="catagory.id">
-       <router-link :to="{name:'Quiz',params:{name:catagory.name} }">{{ catagory.name }}</router-link>
-       
+   <h1>{{ catagoryStore.selectedCatagory }}</h1>
+    <div v-for="catagory in catagoryStore.catagories" :key="catagory.id">
+      <router-link :to="{ name: 'Quiz', params: { name: catagory.name } }">{{
+        catagory.name
+      }}</router-link>
+      <p @click="selectCatagory(catagory)">{{ catagory.name }}</p>
     </div>
- </main>
+  </main>
 </template>
 <script>
+import router from '../router';
+import { useCatagoryStore } from "../stores/catagoryStore";
+export default {
+  setup() {
+    const catagoryStore = useCatagoryStore();
 
- export default {
-   data(){
-      return {
-         catagories:[
-            {id:1, name:'General Knowledge', url:'https://opentdb.com/api.php?amount=10&category=9&type=multiple'},
-            {id:2, name:'Books', url:'https://opentdb.com/api.php?amount=10&category=10&type=multiple'},
-            {id:3, name:'Film', url:'https://opentdb.com/api.php?amount=10&category=11&type=multiple'},
-         ]
-      }
-   }
- }
+    const selectCatagory = (cat) => {
+      catagoryStore.selectCatagory(cat);
+      router.push({ name: 'Quiz', params: { name: cat.name } })
+    }
+
+    return { catagoryStore, selectCatagory };
+
+    
+  },
+};
 </script>
