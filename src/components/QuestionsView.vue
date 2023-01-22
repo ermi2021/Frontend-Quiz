@@ -21,7 +21,7 @@
         py-6
       "
     >
-    <h1>{{ catagoryStore.selectedCatagory.url }}</h1>
+    
       <img
         src="../assets/images/abstract.svg"
         alt=""
