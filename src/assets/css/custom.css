@@ -46,3 +46,31 @@
 .option-correct div:nth-child(2){
     @apply bg-green-600 text-gray-800;
 }
+
+
+
+/* HomeView styles */
+.main-wrapper {
+    background-color: #61876E;
+}
+
+.side-bar {
+    background-color: #3C6255;
+}
+.home-footer{
+    background-color: #3C6255;
+}
+
+.home-footer > h6 {
+    text-align: center;
+}
+
+.text-wrapper > p {
+    color: white;
+    font-weight: bold;
+}
+
+.select-catagory {
+ color: white;
+ font-size: large;
+}
