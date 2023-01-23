@@ -72,5 +72,19 @@
 
 .select-catagory {
  color: white;
- font-size: large;
+ font-size: 30px;
+ font-weight: bold;
+}
+
+.card:hover {
+    outline: 0;
+    z-index: 10;
+    transition: var(--transition);
+    background-color: transparent;
+}
+
+.card-title {
+    background-color: #3C6255;
+    color: black;
+    font-size: medium;
 }
