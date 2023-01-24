@@ -1,7 +1,8 @@
 <template>
   <main>
-    <h1 v-if="start==false">{{ countDown }}</h1>
-    <QuestionsView v-if="start"></QuestionsView>
+     <countdown-overlay v-if="start==false"></countdown-overlay>
+
+     <QuestionsView v-if="start"></QuestionsView>
   </main>
 </template>
 
@@ -11,11 +12,12 @@ import QuestionsView from "../components/QuestionsView.vue";
 import { useCatagoryStore } from "../stores/catagoryStore";
 import config from "../config";
 import router from "../router";
+import CountdownOverlay from '../components/CountdownOverlay.vue';
 export default {
   props: ["name"],
   data(){
      return {
-      countDown:10
+      countDown:5
      }
   },
   watch:{
@@ -42,7 +44,7 @@ export default {
     const startQuiz = ()=>{
        let interval = setInterval(()=>{
           if(countDown > 0){
-            countDown.value -= 1;
+           this.countDown.value -= 1;
           }else{
             start.value = true;
             clearInterval(interval);
@@ -64,6 +66,7 @@ export default {
 
   components: {
     QuestionsView,
+    CountdownOverlay,
   },
 };
 </script>

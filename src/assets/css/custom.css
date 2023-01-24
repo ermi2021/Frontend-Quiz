@@ -1,6 +1,44 @@
+/* fonts */
+@font-face {
+    font-family: Roboto-bold;
+    src: url(../font/Roboto-Bold.ttf);
+  }
+  @font-face {
+    font-family: Roboto-italic;
+    src: url(../font/Roboto-Italic.ttf);
+  }
+
+  @font-face {
+    font-family: Roboto-Light;
+    src: url(../font/Roboto-Light.ttf);
+  }
+
+  @font-face {
+    font-family: Roboto-Thin;
+    src: url(../font/Roboto-Thin.ttf);
+  }
+
 /* custom styles here */
 .option-default{
     @apply cursor-pointer;
+}
+.countdown-wrapper {
+    @apply  w-screen h-screen absolute z-30   bg-opacity-100 flex flex-col justify-center items-center bg-blend-screen ;
+    background-color: #3C6255;
+}
+
+.get-ready {
+   font-size: 30px;
+   font-family: Roboto-Light;
+}
+
+.countDown {
+    font-size: 120px;
+    font-weight: bolder;
+    font-family: Roboto-Bold;
+    padding: 70px;
+    border-radius: 100%;
+    border: #D6CDA4 10px solid;
 }
 
 .option-default div:nth-child(1){
@@ -67,13 +105,23 @@
 
 .text-wrapper > p {
     color: white;
-    font-weight: bold;
+    margin-left: 20px;
+    font-family: Roboto-bold;
+}
+.quote {
+    font-family: Roboto-Light;
+    margin-top: 16px;
+    font-size: smaller;
+    font-weight: 100;
+    margin-left: 20px;
+    color: #D6CDA4;
 }
 
 .select-catagory {
- color: white;
- font-size: 30px;
- font-weight: bold;
+ color: #D6CDA4;
+ font-size: 25px;
+ 
+ font-family: Roboto-Light;
 }
 
 .card:hover {
@@ -85,6 +133,20 @@
 
 .card-title {
     background-color: #3C6255;
-    color: black;
+    color: #D6CDA4;
     font-size: medium;
+    font-family: Roboto-Thin;
+    font-weight: bold;
+    overflow-x: scroll;
 }
+
+.by {
+    font-family: Roboto-Thin;
+    font-size: 14px;
+    font-weight: lighter;
+    margin-left: 20px;
+}
+
+/* Countdown overlay */
+
+

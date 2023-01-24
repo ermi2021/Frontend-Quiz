@@ -3,10 +3,11 @@
     <v-app>
       <v-main class="d-flex justify-center main-wrapper">
         <v-row class="side-bar ml-auto mr-auto" style="width: 45%">
-          <v-col class="flex align-start justify-center flex-col text-wrapper" cols="12">
+          <v-col class="flex align-start justify-center flex-col text-wrapper relative" cols="12">
             <p style="font-size:70px;">Hello 👋</p>
             <p style="font-size:50px">Welcome to your Quiz.</p>
-            <p style="font-size:25px">Unlock your knowledge at the speed of your thought</p>
+            <h5 class="quote" style="font-size:25px">Unlock your knowledge at the speed of your thought</h5>
+            <h6 class="absolute bottom-1 by text-center">Designed &amp; built by <br/> <a href="https://www.ermidev.com" target="_blank">Ermiyas Zeleke</a> </h6>
           </v-col>
         </v-row>
        
@@ -35,7 +36,7 @@
                 cover
               >
                 <v-card-title
-                  class="text-white align-middle"
+                  class="align-start card-title"
                   v-text="catagory.name"
                 ></v-card-title>
               </v-img>
@@ -49,6 +50,7 @@
 </template>
 <script>
 import router from "../router";
+import 'animate.css';
 import { useCatagoryStore } from "../stores/catagoryStore";
 export default {
   setup() {
