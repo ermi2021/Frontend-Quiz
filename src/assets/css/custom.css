@@ -2,86 +2,101 @@
 @font-face {
     font-family: Roboto-bold;
     src: url(../font/Roboto-Bold.ttf);
-  }
-  @font-face {
+}
+
+@font-face {
     font-family: Roboto-italic;
     src: url(../font/Roboto-Italic.ttf);
-  }
+}
 
-  @font-face {
+@font-face {
     font-family: Roboto-Light;
     src: url(../font/Roboto-Light.ttf);
-  }
+}
 
-  @font-face {
+@font-face {
     font-family: Roboto-Thin;
     src: url(../font/Roboto-Thin.ttf);
-  }
+}
 
 /* custom styles here */
-.option-default{
+.option-default {
     @apply cursor-pointer;
 }
+
 .countdown-wrapper {
-    @apply  w-screen h-screen absolute z-30   bg-opacity-100 flex flex-col justify-center items-center bg-blend-screen ;
-    background-color: #3C6255;
+    @apply w-screen h-screen absolute z-30 bg-opacity-100 flex flex-col justify-center items-center bg-blend-screen;
+   
+    background-image: url(../images/quiz_back.png);
+    background-size: cover;
 }
 
 .get-ready {
-   font-size: 30px;
-   font-family: Roboto-Light;
+    font-size: 30px;
+    font-family: Roboto-Bold;
+    color: #D6CDA4;
+    text-align: center;
 }
 
 .countDown {
-    font-size: 120px;
+    font-size: 150px;
     font-weight: bolder;
     font-family: Roboto-Bold;
-    padding: 70px;
-    border-radius: 100%;
-    border: #D6CDA4 10px solid;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 20px;
+    background-color: #252b2700;
+    color: #D6CDA4;
+    border-radius: 10px;
+  
 }
 
-.option-default div:nth-child(1){
+.option-default div:nth-child(1) {
     @apply hidden;
 }
-.option-default div:nth-child(2) div:nth-child(1){
+
+.option-default div:nth-child(2) div:nth-child(1) {
     @apply inline bg-gray-400 text-gray-800;
 }
 
-.option-default div:nth-child(2){
+.option-default div:nth-child(2) {
     @apply bg-white text-gray-800;
 }
 
 /* wrong custom classes */
-.option-wrong{
+.option-wrong {
     @apply cursor-pointer;
 }
 
-.option-wrong div:nth-child(1){
+.option-wrong div:nth-child(1) {
     @apply hidden;
 }
-.option-wrong div:nth-child(2) div:nth-child(1){
+
+.option-wrong div:nth-child(2) div:nth-child(1) {
     @apply inline bg-gray-800 text-white;
 }
 
-.option-wrong div:nth-child(2){
+.option-wrong div:nth-child(2) {
     @apply bg-red-600 text-gray-800;
 }
 
 /* correct custom classes */
 
-.option-correct{
+.option-correct {
     @apply cursor-pointer;
 }
 
-.option-correct div:nth-child(1){
+.option-correct div:nth-child(1) {
     @apply inline;
 }
-.option-correct div:nth-child(2) div:nth-child(1){
+
+.option-correct div:nth-child(2) div:nth-child(1) {
     @apply inline bg-gray-800 text-white;
 }
 
-.option-correct div:nth-child(2){
+.option-correct div:nth-child(2) {
     @apply bg-green-600 text-gray-800;
 }
 
@@ -95,19 +110,21 @@
 .side-bar {
     background-color: #3C6255;
 }
-.home-footer{
+
+.home-footer {
     background-color: #3C6255;
 }
 
-.home-footer > h6 {
+.home-footer>h6 {
     text-align: center;
 }
 
-.text-wrapper > p {
+.text-wrapper>p {
     color: white;
     margin-left: 20px;
     font-family: Roboto-bold;
 }
+
 .quote {
     font-family: Roboto-Light;
     margin-top: 16px;
@@ -118,10 +135,10 @@
 }
 
 .select-catagory {
- color: #D6CDA4;
- font-size: 25px;
- 
- font-family: Roboto-Light;
+    color: #D6CDA4;
+    font-size: 25px;
+
+    font-family: Roboto-Light;
 }
 
 .card:hover {
@@ -147,6 +164,7 @@
     margin-left: 20px;
 }
 
-/* Countdown overlay */
-
+/* Countdown overlay */body {
+	background: #000;
+}
 
