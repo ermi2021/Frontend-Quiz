@@ -56,15 +56,16 @@
 .option-default {
    background-color: #3C6255;
    border: #D6CDA4 1px solid;
-    
 }
 
 .option-correct {
-    @apply bg-green-500
+    @apply bg-green-500;
+    color: #D6CDA4;
 }
 
 .option-wrong {
-    @apply bg-red-500
+    @apply bg-red-500;
+    color:#D6CDA4;
 }
 
 .option-default div:nth-child(1) {
@@ -83,7 +84,7 @@
 }
 
 .option-wrong div:nth-child(1) {
-    @apply hidden;
+    @apply inline-block;
 }
 
 
@@ -94,17 +95,13 @@
 
 /* correct custom classes */
 
-.option-correct {
-    @apply cursor-pointer;
-}
+
 
 .option-correct div:nth-child(1) {
-    @apply inline;
+    @apply hidden;
 }
 
-.option-correct div:nth-child(2) div:nth-child(1) {
-    @apply inline text-white;
-}
+
 
 .option-wrong div:nth-child(2) div:nth-child(1) {
     @apply inline text-white;
@@ -114,9 +111,6 @@
     @apply inline text-white;
 }
 
-.option-correct  {
-    @apply bg-green-600 text-gray-800;
-}
 
 
 

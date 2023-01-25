@@ -48,40 +48,56 @@
           justify-center
         "
       >
-        <v-col cols="12">
-          <h3 class="text-center mb-10 question">{{ formattedQuestion }}</h3>
+        <v-col class="d-flex items-center justify-center" cols="12">
+          <h3 class="text-center mb-10 question w-2/3">
+            {{ formattedQuestion }}
+          </h3>
         </v-col>
         <v-col
-          class="option-default  cursor-pointer hover:drop-shadow-lg relative mr-3 mt-2 h-32 d-flex items-center justify-center"
-          :ref="optionChosen"
+          class="mr-3 mt-2 h-32 d-flex items-center justify-center"
           v-for="(choice, item) in currentQuestion.choices"
           :key="choice"
-          @click="onOptionClicked(choice, item)"
           cols="5"
         >
           <div
             class="
-              bg-blue-500
-              p-1
-              transform
-              rotate-45
-              rounded-md
-              w-10
-              h-10
-              text-white
-              font-bold
-              absolute
-              right-0
-              top-0
-              shadow-md
+              option-default
+              h-full
+              w-full
+              d-flex
+              items-center
+              justify-center
+              cursor-pointer
+              hover:drop-shadow-lg
+              relative
             "
+            @click="onOptionClicked(choice, item)"
+            :ref="optionChosen"
           >
-            <p class="transform -rotate-45">+10</p>
-          </div>
-          <div class="rounded-lg font-bold flex p-2">
-            <!-- option id -->
+            <div
+              class="
+                bg-green-500
+                p-1
+                transform
+                rotate-45
+                rounded-md
+                w-10
+                h-10
+                text-white
+                font-bold
+                absolute
+                right-0
+                top-0
+                shadow-md
+              "
+            >
+              <p class="transform -rotate-45">+10</p>
+            </div>
+            <div class="rounded-lg font-bold flex p-2">
+              <!-- option id -->
 
-            <div class="flex items-center pl-6 choice">{{ choice }}</div>
+              <div class="flex items-center pl-6 choice">{{ choice }}</div>
+            </div>
           </div>
         </v-col>
 
@@ -170,7 +186,7 @@ export default {
     const optionChosen = (element) => {
       if (element) {
         itemRef.push(element);
-        console.log("item ref ", itemRef)
+        console.log("item ref ", itemRef);
       }
     };
 
@@ -184,6 +200,7 @@ export default {
     };
     const onOptionClicked = (choice, item) => {
       if (canClick) {
+        console.log(itemRef[item]);
         const divContainer = itemRef[item];
         console.log(divContainer);
         const optionId = item++;
