@@ -4,120 +4,91 @@
     :percent="percentageScore"
     @restartQuiz="onQuizStart"
   ></quiz-completed-overlay>
-  <main class="flex h-screen items-center justify-center bg-gray-100">
-    <!-- Quiz overlay -->
 
-    <!-- quiz container -->
-    <div
-      class="
-        overflow-hidden
-        bg-white
-        flex-none
-        container
-        relative
-        shadow-lg
-        rounded-lg
-        px-12
-        py-6
-      "
-    >
-    
-      <img
-        src="../assets/images/abstract.svg"
-        alt=""
-        class="absolute -top-10 left-0 object-none"
-      />
-    
-
+  <!-- Quiz overlay -->
+  <v-app class="Questions_wrapper">
+    <v-main class="d-flex items-center justify-center h-screen px-auto">
       <!-- contents -->
-      <div class="relative z-20">
-        <div class="text-right text-gray-800 mt-4">
-          <p class="text-sm leading-1">Score</p>
-          <p class="font-bold">{{ score }}</p>
-        </div>
+      <!-- <div class="relative z-20">
+          <div class="text-right text-gray-800 mt-4">
+            <p class="text-sm leading-1">Score</p>
+            <p class="font-bold">{{ score }}</p>
+          </div> -->
 
-        <!-- timer container -->
-        <div class="bg-white shadow-lg p-2 rounded-full w-full h-6">
-          <div
-            class="bg-blue-700 rounded-full w-11/12 h-full"
-            :style="`width:${timer}%`"
-          ></div>
-        </div>
+      <!-- timer container -->
+      <!-- <div class="bg-white shadow-lg p-2 rounded-full w-full h-6">
+            <div
+              class="bg-blue-700 rounded-full w-11/12 h-full"
+              :style="`width:${timer}%`"
+            ></div>
+          </div> -->
 
-        <!-- question container -->
-        <div
-          class="
-            rounded-lg
-            neumorph-1
-            bg-grey-100
-            p-2
-            text-center
-            font-bold
-            text-gray-800
-            mt-8
-          "
+      <!-- question container -->
+
+      <v-row
+        class="h-1/2 mt-auto mb-auto mr-10 ml-10 bg-slate-400"
+        style="width: 70%"
+      >
+        <v-col cols="12">
+          <h3>{{ formattedQuestion }}</h3>
+        </v-col>
+        <v-col
+          class="bg-orange-500 option-default relative"
+          :ref="optionChosen"
+          @click="onOptionClicked(choice, item)"
+          v-for="choice in currentQuestion.choices"
+          :key="choice"
+          cols="6"
         >
-          <div class="bg-white p-5">
-            {{ formattedQuestion }}
-          </div>
-        </div>
-
-        <!-- options container -->
-        <div>
-          <!-- option container -->
-          <div v-for="(choice, item) in currentQuestion.choices" :key="item">
+         
             <div
               class="
-                option-default
-                bg-gray-100
-                p-2
-                neumorph-1
-                rounded-lg
-                mb-3
-                relative
+                bg-blue-500
+                p-1
+                transform
+                rotate-45
+                rounded-md
+                w-10
+                h-10
+                text-white
+                font-bold
+                absolute
+                right-0
+                top-0
+                shadow-md
               "
-              :ref="optionChosen"
-              @click="onOptionClicked(choice, item)"
             >
-              <div
-                class="
-                  bg-blue-500
-                  p-1
-                  transform
-                  rotate-45
-                  rounded-md
-                  w-10
-                  h-10
-                  text-white
-                  font-bold
-                  absolute
-                  right-0
-                  top-0
-                  shadow-md
-                "
-              >
-                <p class="transform -rotate-45">+10</p>
-              </div>
-              <div class="rounded-lg font-bold flex p-2">
-                <!-- option id -->
-                <div class="bg-gray-400 p-3 rounded-lg">{{ item }}</div>
-                <div class="flex items-center pl-6">{{ choice }}</div>
-              </div>
+              <p class="transform -rotate-45">+10</p>
             </div>
-          </div>
-        </div>
+            <div class="rounded-lg font-bold flex p-2">
+              <!-- option id -->
+              <div class="bg-gray-400 p-3 rounded-lg">{{ item }}</div>
+              <div class="flex items-center pl-6">{{ choice }}</div>
+            </div>
+          
+        </v-col>
 
-        <!-- progress indicator container-->
-        <div class="mt-8 text-center">
-          <div class="h-1 w-12 bg-gray-800 rounded-full mx-auto"></div>
-          <p class="font-bold text-gray-800">
-            {{ questionCounter }}/{{ questions.length }}
-          </p>
-        </div>
+        <v-col cols="12">
+          <!-- progress indicator container-->
+          <div class="mt-8 text-center">
+            <div class="h-1 w-12 bg-gray-800 rounded-full mx-auto"></div>
+            <p class="font-bold text-gray-800">
+              {{ questionCounter }}/{{ questions.length }}
+            </p>
+          </div>
+        </v-col>
+      </v-row>
+
+      <!-- options container -->
+      <div>
+        <!-- option container -->
       </div>
+
       <!-- score container -->
-    </div>
-  </main>
+      <!-- </div> -->
+    </v-main>
+  </v-app>
+  <!-- quiz container -->
 </template>
 <style scoped>
 .neumorph-1 {
@@ -134,11 +105,9 @@ import { onMounted, ref, toRefs } from "vue";
 import { useRoute } from "vue-router";
 import { useCatagoryStore } from "../stores/catagoryStore";
 import QuizCompletedOverlay from "../components/QuizCompletedOverlay.vue";
-import router from '../router';
+import router from "../router";
 import { defineProps, reactive } from "vue";
 export default {
-  
-
   components: { QuizCompletedOverlay },
   setup() {
     //data
@@ -230,7 +199,6 @@ export default {
     };
 
     const fetchQuestionsFromApi = async function () {
-    
       fetch(catagoryStore.selectedCatagory.url)
         .then((res) => {
           return res.json();
@@ -290,21 +258,18 @@ export default {
         question: "",
       };
 
-      percentageScore.value =0;
+      percentageScore.value = 0;
 
       questions.value = [];
 
       //fetch questions from server
- 
-        fetchQuestionsFromApi();
-  
-     
+
+      fetchQuestionsFromApi();
     };
 
     //lifecycle hooks
     onMounted(() => {
-     
-      fetchQuestionsFromApi()
+      fetchQuestionsFromApi();
     });
 
     // return
@@ -321,11 +286,11 @@ export default {
       onQuizEnd,
       percentageScore,
       onQuizStart,
-      catagoryStore
+      catagoryStore,
     };
   },
 
-  computed:{
+  computed: {
     formattedQuestion() {
       let entities = {
         amp: "&",
@@ -340,12 +305,12 @@ export default {
         quot: '"',
         "#039": "'",
       };
-      return this.currentQuestion.question.replace(/&([^;]+);/gm, function(
-        match,
-        entity
-      ) {
-        return entities[entity] || match;
-      });
+      return this.currentQuestion.question.replace(
+        /&([^;]+);/gm,
+        function (match, entity) {
+          return entities[entity] || match;
+        }
+      );
     },
   },
 

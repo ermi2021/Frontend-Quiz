@@ -1,8 +1,8 @@
 <template>
   <main>
     <v-app>
-      <v-main class="d-flex justify-center main-wrapper">
-        <v-row class="side-bar ml-auto mr-auto" style="width: 45%">
+      <v-main class="d-flex justify-center main-wrapper h-screen">
+        <v-row class="side-bar mt-auto mb-auto ml-auto mr-auto h-screen" style="width: 45%">
           <v-col class="flex align-start justify-center flex-col text-wrapper relative" cols="12">
             <p style="font-size:70px;">Hello 👋</p>
             <p style="font-size:50px">Welcome to your Quiz.</p>
@@ -11,7 +11,7 @@
           </v-col>
         </v-row>
        
-        <v-row class="ml-auto mr-auto mt-auto mb-auto bg-transparent" style="width: 55%">
+        <v-row class="ml-auto mr-auto mt-auto mb-auto bg-transparent h-screen" style="width: 55%">
           <v-col
            class="flex justify-center align-middle"
             cols="12"

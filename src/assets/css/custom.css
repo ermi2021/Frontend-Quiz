@@ -46,7 +46,7 @@
     padding-right: 50px;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-top: 20px;
+    
     background-color: #252b2700;
     color: #D6CDA4;
     border-radius: 10px;
@@ -168,3 +168,11 @@
 	background: #000;
 }
 
+
+/* Questions Page styles */
+.Questions_wrapper {
+    @apply flex h-screen  bg-gray-100;
+    background-image: url(../images/quiz_back.png);
+    background-size: cover;
+
+}
