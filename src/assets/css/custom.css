@@ -53,16 +53,28 @@
   
 }
 
+.option-default {
+   background-color: #3C6255;
+   border: #D6CDA4 1px solid;
+    
+}
+
+.option-correct {
+    @apply bg-green-500
+}
+
+.option-wrong {
+    @apply bg-red-500
+}
+
 .option-default div:nth-child(1) {
     @apply hidden;
 }
 
-.option-default div:nth-child(2) div:nth-child(1) {
-    @apply inline bg-gray-400 text-gray-800;
-}
+
 
 .option-default div:nth-child(2) {
-    @apply bg-white text-gray-800;
+    @apply bg-transparent text-gray-800;
 }
 
 /* wrong custom classes */
@@ -74,11 +86,9 @@
     @apply hidden;
 }
 
-.option-wrong div:nth-child(2) div:nth-child(1) {
-    @apply inline bg-gray-800 text-white;
-}
 
-.option-wrong div:nth-child(2) {
+
+.option-wrong  {
     @apply bg-red-600 text-gray-800;
 }
 
@@ -93,10 +103,18 @@
 }
 
 .option-correct div:nth-child(2) div:nth-child(1) {
-    @apply inline bg-gray-800 text-white;
+    @apply inline text-white;
 }
 
-.option-correct div:nth-child(2) {
+.option-wrong div:nth-child(2) div:nth-child(1) {
+    @apply inline text-white;
+}
+
+.option-default div:nth-child(2) div:nth-child(1) {
+    @apply inline text-white;
+}
+
+.option-correct  {
     @apply bg-green-600 text-gray-800;
 }
 
@@ -171,8 +189,18 @@
 
 /* Questions Page styles */
 .Questions_wrapper {
-    @apply flex h-screen  bg-gray-100;
-    background-image: url(../images/quiz_back.png);
-    background-size: cover;
+    @apply flex h-screen;
+    background-color: #111f16;
+}
 
+.question{
+    font-size: 30px;
+    font-family: Roboto-Bold;
+    color: #D6CDA4;
+
+}
+.choice {
+    font-size: large;
+    font-family: Roboto-Bold;
+    color: #D6CDA4;
 }
