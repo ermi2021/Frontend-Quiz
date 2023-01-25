@@ -26,13 +26,7 @@
             <p class="font-bold">{{ score }}</p>
           </div> -->
 
-      <!-- timer container -->
-      <!-- <div class="bg-white shadow-lg p-2 rounded-full w-full h-6">
-            <div
-              class="bg-blue-700 rounded-full w-11/12 h-full"
-              :style="`width:${timer}%`"
-            ></div>
-          </div> -->
+   
 
       <!-- question container -->
       <v-row
@@ -48,6 +42,13 @@
           justify-center
         "
       >
+         <!-- timer container -->
+      <div class="bg-white shadow-lg p-2 rounded-full w-full h-6">
+            <div
+              class="bg-blue-700 rounded-full w-11/12 h-full"
+              :style="`width:${timer}%`"
+            ></div>
+          </div>
         <v-col class="d-flex items-center justify-center" cols="12">
           <h3 class="text-center mb-10 question w-2/3">
             {{ formattedQuestion }}
@@ -71,8 +72,10 @@
               hover:drop-shadow-lg
               relative
             "
-            @click="onOptionClicked(choice, item)"
+            style="border: #D6CDA4 1px solid;"
             :ref="optionChosen"
+            @click="onOptionClicked(choice, item)"
+            
           >
             <div
               class="
@@ -186,7 +189,6 @@ export default {
     const optionChosen = (element) => {
       if (element) {
         itemRef.push(element);
-        console.log("item ref ", itemRef);
       }
     };
 
@@ -196,13 +198,11 @@ export default {
         divSelected.classList.remove("option-wrong");
         divSelected.classList.add("option-default");
         loadQuestion();
-      }, 1000);
+      }, 2000);
     };
     const onOptionClicked = (choice, item) => {
       if (canClick) {
-        console.log(itemRef[item]);
         const divContainer = itemRef[item];
-        console.log(divContainer);
         const optionId = item++;
         if (currentQuestion.value.answer == optionId) {
           score.value += 10;
@@ -213,7 +213,7 @@ export default {
           divContainer.classList.remove("option-default");
         }
 
-        timer.value = 100;
+        timer.value = 120;
         canClick = false;
         //Goto next question
         clearSelected(divContainer);
