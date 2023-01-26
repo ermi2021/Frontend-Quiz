@@ -56,34 +56,46 @@
 
 /* default option */
 .option-default {
-   background-color: #3C6255;
-   color: #D6CDA4;
+   background-color: #61876E;
+   color: #D6CDA4; 
 }
 
 .option-default div:nth-child(1) {
     @apply hidden;
 }
 
+.option-default div:nth-child(2) div:nth-child(1){
+    @apply inline;
+    color:#D6CDA4;
+}
+
 /* wrong option */
 .option-wrong {
-    @apply bg-red-500 cursor-pointer;
-    color:#D6CDA4;
-
+    @apply !bg-red-500 cursor-pointer; 
 }
+
 .option-wrong div:nth-child(1) {
     @apply hidden;
 }
 
+.option-wrong div:nth-child(2) div:nth-child(1){
+    @apply inline;
+    color: #D6CDA4;
+}
+
 /* correct option */
 .option-correct {
-    @apply bg-green-500;
+    @apply !bg-green-500;
     color: #D6CDA4;
 }
 .option-correct div:nth-child(1) {
     @apply inline animate-bounce;
 }
 
-
+.option-correct div:nth-child(2) div:nth-child(1){
+    @apply inline;
+    color:#D6CDA4;
+}
 /* HomeView styles */
 .main-wrapper {
     background-color: #61876E;
@@ -162,9 +174,4 @@
     font-family: Roboto-Bold;
     color: #D6CDA4;
 
-}
-.choice {
-    font-size: large;
-    font-family: Roboto-Bold;
-    color: #D6CDA4;
 }

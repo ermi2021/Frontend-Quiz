@@ -4,7 +4,7 @@
      countdown-wrapper
     "
   >
-    <h1 class="get-ready">Your Quiz Will Start In <br/> 👇</h1>
+  
     <p class="countDown animate-pulse">{{ countDown }}</p>
   </main>
 </template>

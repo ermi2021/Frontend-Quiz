@@ -69,7 +69,7 @@
               items-center
               justify-center
               cursor-pointer
-              hover:drop-shadow-lg
+            
               relative
             "
             style="border: #D6CDA4 1px solid;"
@@ -99,7 +99,7 @@
             <div class="rounded-lg font-bold flex p-2">
               <!-- option id -->
 
-              <div class="flex items-center pl-6 choice">{{ choice }}</div>
+              <div class="flex items-center pl-6">{{ choice }}</div>
             </div>
           </div>
         </v-col>
@@ -197,12 +197,14 @@ export default {
         divSelected.classList.remove("option-correct");
         divSelected.classList.remove("option-wrong");
         divSelected.classList.add("option-default");
+        console.log("after cleared: ", divSelected);
         loadQuestion();
       }, 2000);
     };
     const onOptionClicked = (choice, item) => {
       if (canClick) {
         const divContainer = itemRef[item];
+      
         const optionId = item++;
         if (currentQuestion.value.answer == optionId) {
           score.value += 10;
@@ -213,9 +215,10 @@ export default {
           divContainer.classList.remove("option-default");
         }
 
-        timer.value = 120;
+        timer.value = 1000;
         canClick = false;
         //Goto next question
+        console.log("before cleared: ",divContainer);
         clearSelected(divContainer);
       } else {
         // Cant select option
