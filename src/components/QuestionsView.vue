@@ -10,9 +10,7 @@
     <v-main
       class="
         d-flex
-        items-center
-        justify-center
-        align-middle
+       
         h-screen
         px-auto
         Questions_wrapper
@@ -33,8 +31,7 @@
         class="
           h-1/2
           w-4/5
-          mt-auto
-          mb-auto
+         
           mr-30
           ml-20
           d-flex
@@ -69,12 +66,12 @@
               items-center
               justify-center
               cursor-pointer
-            
+              pl-6
               relative
             "
             style="border: #D6CDA4 1px solid;"
-            :ref="optionChosen"
-            @click="onOptionClicked(choice, item)"
+           
+            @click="onOptionClicked($event, item)"
             
           >
             <div
@@ -92,15 +89,13 @@
                 right-0
                 top-0
                 shadow-md
+
               "
             >
               <p class="transform -rotate-45">+10</p>
             </div>
-            <div class="rounded-lg font-bold flex p-2">
-              <!-- option id -->
-
-              <div class="flex items-center pl-6">{{ choice }}</div>
-            </div>
+            {{ choice }}
+            
           </div>
         </v-col>
 
@@ -194,31 +189,28 @@ export default {
 
     const clearSelected = (divSelected) => {
       setTimeout(() => {
-        divSelected.classList.remove("option-correct");
-        divSelected.classList.remove("option-wrong");
-        divSelected.classList.add("option-default");
-        console.log("after cleared: ", divSelected);
+        divSelected.classList.add('option-default');
+        divSelected.classList.remove('option-wrong');
+        divSelected.classList.remove('option-correct');
         loadQuestion();
-      }, 2000);
+      }, 1000);
     };
-    const onOptionClicked = (choice, item) => {
+    const onOptionClicked = (event, item) => {
       if (canClick) {
-        const divContainer = itemRef[item];
-      
+        const divContainer = event.target;
+        console.log("inside onOptionClicked ", divContainer);
         const optionId = item++;
         if (currentQuestion.value.answer == optionId) {
           score.value += 10;
-          divContainer.classList.add("option-correct");
-          divContainer.classList.remove("option-default");
+          event.target.classList.add('option-correct');
         } else {
-          divContainer.classList.add("option-wrong");
-          divContainer.classList.remove("option-default");
+          event.target.classList.add('option-wrong');
         }
 
-        timer.value = 1000;
+        timer.value = 100;
         canClick = false;
         //Goto next question
-        console.log("before cleared: ",divContainer);
+      
         clearSelected(divContainer);
       } else {
         // Cant select option

@@ -22,7 +22,7 @@ export default {
 
   data() {
     return {
-      countDown: 5,
+      countDown: 3,
     };
   },
   watch: {
