@@ -7,6 +7,14 @@
 
   <!-- Quiz overlay -->
   <v-app>
+    <div class="text-right text-gray-800 score_container">
+      <p class="text-sm leading-1 score_text">Score</p>
+      <p class="font-bold score">{{ score }}</p>
+    </div>
+    <div class="text-right text-gray-800 timer_container">
+      <p class="text-sm leading-1 timer_text">Time Left:</p>
+      <p class="font-bold time_left">{{ timer }}</p>
+    </div>
     <v-main
       class="
         px-auto
@@ -22,22 +30,14 @@
          -->
 
       <!-- question container -->
-      <v-row>
-        <v-col cols="12">
-          <div class="text-right text-gray-800 mt-4">
-            <p class="text-sm leading-1">Score</p>
-            <p class="font-bold">{{ score }}</p>
-          </div> 
-        </v-col>
-      </v-row>
+
       <v-row class="w-full mr-30 ml-20 d-flex items-center justify-center">
-       
         <v-col class="d-flex items-center justify-center" cols="12">
           <h3 class="text-center question w-2/3">
             {{ formattedQuestion }}
           </h3>
         </v-col>
-       
+
         <v-col
           class="mr-3 mt-2 h-32 d-flex items-center justify-center"
           v-for="(choice, item) in currentQuestion.choices"
@@ -95,8 +95,10 @@
                 );
               "
             ></div>
-            <p class="font-bold text-white h-10" style="vertical-align: middle;">
-             <span class="questionCounter">{{ questionCounter }}</span> /{{ questions.length }}
+            <p class="font-bold text-white h-10" style="vertical-align: middle">
+              <span class="questionCounter">{{ questionCounter }}</span> /{{
+                questions.length
+              }}
             </p>
           </div>
         </v-col>
