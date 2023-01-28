@@ -19,11 +19,20 @@
     src: url(../font/Roboto-Thin.ttf);
 }
 
+::-moz-selection { /* Code for Firefox */
+    color: white;
+    background: #3C6255;
+  }
+  
+  ::selection {
+    color: white;
+    background: #5c9b85;
+  }
 /* custom styles here */
 
 .countdown-wrapper {
     @apply w-screen h-screen absolute z-30 bg-opacity-100 flex flex-col justify-center items-center bg-blend-screen;
-   
+
     background-image: url(../images/quiz_back.png);
     background-size: cover;
 }
@@ -43,11 +52,11 @@
     padding-right: 50px;
     padding-top: 10px;
     padding-bottom: 10px;
-    
+
     background-color: #252b2700;
     color: #D6CDA4;
     border-radius: 10px;
-  
+
 }
 
 
@@ -56,46 +65,53 @@
 
 /* default option */
 .option-default {
-   background-color: #61876E;
-   color: #D6CDA4; 
+    background-image: linear-gradient(102deg, rgba(68, 110, 92, 1) 49.3%, rgba(68, 110, 92, 1) 83.4%, rgba(68, 110, 92, 1) 110.3%);
+    font-size: larger;
+    color: white;
+    font-family: Roboto-light;
+    @apply rounded-lg hover:drop-shadow-lg;
 }
 
 .option-default div:nth-child(1) {
     @apply hidden;
 }
 
-.option-default div:nth-child(2) div:nth-child(1){
+.option-default div:nth-child(2) div:nth-child(1) {
     @apply inline;
-    color:#D6CDA4;
+    color: #D6CDA4;
+    font-size: large;
 }
 
 /* wrong option */
 .option-wrong {
-    @apply !bg-red-500 cursor-pointer; 
+    background-image: linear-gradient(178.2deg, rgba(118, 8, 23, 1) 10.9%, rgba(158, 12, 33, 1) 62.6%);
+    @apply cursor-pointer;
 }
 
 .option-wrong div:nth-child(1) {
     @apply hidden;
 }
 
-.option-wrong div:nth-child(2) div:nth-child(1){
+.option-wrong div:nth-child(2) div:nth-child(1) {
     @apply inline;
     color: #D6CDA4;
 }
 
 /* correct option */
 .option-correct {
-    @apply !bg-green-500;
+    background-image: radial-gradient(circle 759px at -6.7% 50%, rgba(80, 131, 73, 1) 0%, rgba(140, 209, 131, 1) 26.2%, rgba(178, 231, 170, 1) 50.6%, rgba(144, 213, 135, 1) 74.1%, rgba(75, 118, 69, 1) 100.3%);
     color: #D6CDA4;
 }
+
 .option-correct div:nth-child(1) {
     @apply inline animate-bounce;
 }
 
-.option-correct div:nth-child(2) div:nth-child(1){
+.option-correct div:nth-child(2) div:nth-child(1) {
     @apply inline;
-    color:#D6CDA4;
+    color: #D6CDA4;
 }
+
 /* HomeView styles */
 .main-wrapper {
     background-color: #61876E;
@@ -158,20 +174,33 @@
     margin-left: 20px;
 }
 
-/* Countdown overlay */body {
-	background: #000;
+/* Countdown overlay */
+body {
+    background: #000;
 }
 
 
 /* Questions Page styles */
 .Questions_wrapper {
-    @apply flex h-screen;
-    background-color: #111f16;
+    background-color: #3C6255;
 }
 
-.question{
+.timer {
+    font-size: large;
+    color: white;
+    font-family: Roboto-Bold;
+
+}
+
+.question {
     font-size: 30px;
     font-family: Roboto-Bold;
-    color: #D6CDA4;
+    color: white;
+
+}
+
+.questionCounter {
+    font-size: 40px;
+    font-family: Roboto-Bold;
 
 }

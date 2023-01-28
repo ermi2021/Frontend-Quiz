@@ -9,48 +9,35 @@
   <v-app>
     <v-main
       class="
-        d-flex
-       
-        h-screen
         px-auto
         Questions_wrapper
         w-full
+        d-flex
+        items-center
+        justify-around
       "
     >
       <!-- contents -->
       <!-- <div class="relative z-20">
+         -->
+
+      <!-- question container -->
+      <v-row>
+        <v-col cols="12">
           <div class="text-right text-gray-800 mt-4">
             <p class="text-sm leading-1">Score</p>
             <p class="font-bold">{{ score }}</p>
-          </div> -->
-
-   
-
-      <!-- question container -->
-      <v-row
-        class="
-          h-1/2
-          w-4/5
-         
-          mr-30
-          ml-20
-          d-flex
-          items-center
-          justify-center
-        "
-      >
-         <!-- timer container -->
-      <div class="bg-white shadow-lg p-2 rounded-full w-full h-6">
-            <div
-              class="bg-blue-700 rounded-full w-11/12 h-full"
-              :style="`width:${timer}%`"
-            ></div>
-          </div>
+          </div> 
+        </v-col>
+      </v-row>
+      <v-row class="w-full mr-30 ml-20 d-flex items-center justify-center">
+       
         <v-col class="d-flex items-center justify-center" cols="12">
-          <h3 class="text-center mb-10 question w-2/3">
+          <h3 class="text-center question w-2/3">
             {{ formattedQuestion }}
           </h3>
         </v-col>
+       
         <v-col
           class="mr-3 mt-2 h-32 d-flex items-center justify-center"
           v-for="(choice, item) in currentQuestion.choices"
@@ -69,10 +56,7 @@
               pl-6
               relative
             "
-            style="border: #D6CDA4 1px solid;"
-           
             @click="onOptionClicked($event, item)"
-            
           >
             <div
               class="
@@ -89,22 +73,30 @@
                 right-0
                 top-0
                 shadow-md
-
               "
             >
               <p class="transform -rotate-45">+10</p>
             </div>
             {{ choice }}
-            
           </div>
         </v-col>
 
         <v-col cols="12">
           <!-- progress indicator container-->
           <div class="mt-8 text-center">
-            <div class="h-1 w-12 bg-gray-800 rounded-full mx-auto"></div>
-            <p class="font-bold text-gray-800">
-              {{ questionCounter }}/{{ questions.length }}
+            <div
+              class="h-1 w-12 rounded-full mx-auto"
+              style="
+                background-color: #85ffbd;
+                background-image: linear-gradient(
+                  45deg,
+                  #85ffbd 0%,
+                  #fffb7d 100%
+                );
+              "
+            ></div>
+            <p class="font-bold text-white h-10" style="vertical-align: middle;">
+             <span class="questionCounter">{{ questionCounter }}</span> /{{ questions.length }}
             </p>
           </div>
         </v-col>
@@ -145,7 +137,7 @@ export default {
     const catagoryStore = useCatagoryStore();
     const route = useRoute();
     let canClick = true;
-    let timer = ref(100);
+    let timer = ref(30);
     let endofQuiz = ref(false);
     let questionCounter = ref(0);
     let score = ref(0);
@@ -162,15 +154,11 @@ export default {
 
     const loadQuestion = () => {
       canClick = true;
-
       //check if there are more questions to load
       if (questions.value.length > questionCounter.value) {
         // load questions
-        timer.value = 100;
-
+        timer.value = 30;
         currentQuestion.value = questions.value[questionCounter.value];
-        console.log(currentQuestion.value);
-
         questionCounter.value++;
       } else {
         //no more questions
@@ -189,28 +177,27 @@ export default {
 
     const clearSelected = (divSelected) => {
       setTimeout(() => {
-        divSelected.classList.add('option-default');
-        divSelected.classList.remove('option-wrong');
-        divSelected.classList.remove('option-correct');
+        divSelected.classList.add("option-default");
+        divSelected.classList.remove("option-wrong");
+        divSelected.classList.remove("option-correct");
         loadQuestion();
       }, 1000);
     };
     const onOptionClicked = (event, item) => {
       if (canClick) {
         const divContainer = event.target;
-        console.log("inside onOptionClicked ", divContainer);
         const optionId = item++;
         if (currentQuestion.value.answer == optionId) {
           score.value += 10;
-          event.target.classList.add('option-correct');
+          event.target.classList.add("option-correct");
         } else {
-          event.target.classList.add('option-wrong');
+          event.target.classList.add("option-wrong");
         }
 
-        timer.value = 100;
+        timer.value = 30;
         canClick = false;
         //Goto next question
-      
+
         clearSelected(divContainer);
       } else {
         // Cant select option
@@ -226,7 +213,7 @@ export default {
           onQuizEnd();
           clearInterval(interval);
         }
-      }, 150);
+      }, 1000);
     };
 
     const fetchQuestionsFromApi = async function () {
@@ -279,7 +266,7 @@ export default {
     const onQuizStart = function () {
       //set default values
       canClick = true;
-      timer.value = 100;
+      timer.value = 30;
       endofQuiz.value = false;
       questionCounter.value = 0;
       score.value = 0;
