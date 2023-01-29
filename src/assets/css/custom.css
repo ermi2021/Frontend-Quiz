@@ -147,14 +147,14 @@
 }
 .done {
     @apply w-full  px-10 mx-5 py-2 rounded-md hover:drop-shadow-lg font-bold cursor-pointer;
-    background-color: rgb(145, 9, 9); 
+    background-image: linear-gradient( 106.9deg,  rgba(148,14,60,1) 60.9%, rgba(3,22,27,1) 122.3% );
     font-size: 20px;
     color: #D6CDA4;
     text-align: center;
 }
 .try_again {
     @apply w-fit px-10  py-2 rounded-md hover:drop-shadow-lg font-bold cursor-pointer;
-    background-color: green; 
+    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% );
     font-size: 20px;
     text-align: center;
     color: #D6CDA4;
@@ -184,7 +184,7 @@
 }
 
 .option-correct div:nth-child(1) {
-    @apply inline animate-ping delay-1000;
+    @apply inline;
 }
 
 .option-correct div:nth-child(2) div:nth-child(1) {

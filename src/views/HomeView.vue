@@ -5,7 +5,7 @@
         <v-row class="side-bar mt-auto mb-auto ml-auto mr-auto h-screen" style="width: 45%">
           <v-col class="flex align-start justify-center flex-col text-wrapper relative" cols="12">
             <p style="font-size:70px;">Hello 👋</p>
-            <p style="font-size:50px">Welcome to your Quiz.</p>
+            <p style="font-size:50px">It's time to take a Quiz.</p>
             <h5 class="quote">"Unlock your knowledge at the speed of your thought"</h5>
             <h6 class="my-link">Designed &amp; built by <br/> <a href="https://www.ermidev.com" class="mysite_link" target="_blank">Ermiyas Zeleke</a> </h6>
           </v-col>

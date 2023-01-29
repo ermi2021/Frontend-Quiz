@@ -5,7 +5,8 @@
     "
   >
   
-    <p class="countDown animate-pulse">{{ countDown }}</p>
+    <p  class="countDown animate-pulse">{{ countDown }}</p>
+    <p  v-if="countdown == 0">Go!</p>
   </main>
 </template>
 
@@ -28,7 +29,7 @@ export default {
   watch: {
     countDown: {
       handler(value) {
-        if (value > 0) {
+        if (value >= 2) {
           setTimeout(() => {
             this.countDown--;
           }, 1000);

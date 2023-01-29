@@ -69,8 +69,8 @@
                 transform
                 rotate-45
                 rounded-md
-                w-10
-                h-10
+                w-20
+                h-20
                 text-white
                 font-bold
                 absolute
@@ -79,7 +79,18 @@
                 shadow-md
               "
             >
-              <p class="transform -rotate-45">+10</p>
+              <p
+                class="
+                  transform
+                  -rotate-45
+                  align-middle
+                  animate-pulse
+                  mt-3
+                  text-center
+                "
+              >
+                +10
+              </p>
             </div>
             {{ choice }}
           </div>
@@ -187,7 +198,7 @@ export default {
         divSelected.classList.remove("option-wrong");
         divSelected.classList.remove("option-correct");
         loadQuestion();
-      }, 2500);
+      }, 1500);
     };
     const onOptionClicked = (event, item) => {
       if (canClick) {
@@ -333,6 +344,16 @@ export default {
         nbsp: " ",
         quot: '"',
         "#039": "'",
+        cent: "¢",
+        pound: "£",
+        copy: "©",
+        laquo: "«",
+        raquo: "»",
+        ldquo: "“",
+        rdquo: "”",
+        bdquo: "„",
+        lt: "<",
+        gt: ">",
       };
       return this.currentQuestion.question.replace(
         /&([^;]+);/gm,
@@ -340,6 +361,34 @@ export default {
           return entities[entity] || match;
         }
       );
+    },
+    formattedOption(choice) {
+      let entities = {
+        amp: "&",
+        apos: "'",
+        "#x27": "'",
+        "#x2F": "/",
+        "#39": "'",
+        "#47": "/",
+        lt: "<",
+        gt: ">",
+        nbsp: " ",
+        quot: '"',
+        "#039": "'",
+        cent: "¢",
+        pound: "£",
+        copy: "©",
+        laquo: "«",
+        raquo: "»",
+        ldquo: "“",
+        rdquo: "”",
+        bdquo: "„",
+        lt: "<",
+        gt: ">",
+      };
+      return choice.replace(/&([^;]+);/gm, function (match, entity) {
+        return entities[entity] || match;
+      });
     },
   },
 
