@@ -1,12 +1,15 @@
 <template>
-  <quiz-completed-overlay
-    v-if="endofQuiz"
+
+  <v-overlay class="flex justify-center items-center bg-green-700 bg-opacity-80" v-model="endofQuiz">
+    <quiz-completed-overlay
+   
     :percent="percentageScore"
     @restartQuiz="onQuizStart"
   ></quiz-completed-overlay>
 
+  </v-overlay>
   <!-- Quiz overlay -->
-  <v-app>
+  <v-app class="relative">
     <div class="text-right text-gray-800 score_container">
       <p class="text-sm leading-1 score_text">Score</p>
       <p class="font-bold score">{{ score }}</p>
@@ -183,7 +186,7 @@ export default {
         divSelected.classList.remove("option-wrong");
         divSelected.classList.remove("option-correct");
         loadQuestion();
-      }, 1000);
+      }, 2500);
     };
     const onOptionClicked = (event, item) => {
       if (canClick) {

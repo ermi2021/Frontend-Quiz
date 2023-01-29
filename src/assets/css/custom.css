@@ -130,6 +130,35 @@
     color: #D6CDA4;
     font-size: large;
 }
+.congratualtion {
+    @apply text-center animate-pulse delay-1000 rounded-md px-10 py-3;
+    color: whitesmoke;
+    font-size: 35px;
+    font-family: Roboto-Bold;
+    background-color: #00DBDE;
+    background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%);
+
+}
+
+.percent_score {
+    font-size: 30px;
+    color: #D6CDA4;
+    font-family: Roboto-Bold;
+}
+.done {
+    @apply w-full  px-10 mx-5 py-2 rounded-md hover:drop-shadow-lg font-bold cursor-pointer;
+    background-color: rgb(145, 9, 9); 
+    font-size: 20px;
+    color: #D6CDA4;
+    text-align: center;
+}
+.try_again {
+    @apply w-fit px-10  py-2 rounded-md hover:drop-shadow-lg font-bold cursor-pointer;
+    background-color: green; 
+    font-size: 20px;
+    text-align: center;
+    color: #D6CDA4;
+}
 
 /* wrong option */
 .option-wrong {
@@ -139,7 +168,7 @@
 }
 
 .option-wrong div:nth-child(1) {
-    @apply hidden;
+    @apply hidden animate-ping;
 }
 
 .option-wrong div:nth-child(2) div:nth-child(1) {
@@ -155,7 +184,7 @@
 }
 
 .option-correct div:nth-child(1) {
-    @apply inline animate-bounce;
+    @apply inline animate-ping delay-1000;
 }
 
 .option-correct div:nth-child(2) div:nth-child(1) {
@@ -169,7 +198,9 @@
 }
 
 .side-bar {
-    background-color: #3C6255;
+    background-color: #d6cda4;
+    background-image: linear-gradient(137deg, #d6cda4 0%, #61876e 37%, #3c6255 100%);
+    
 }
 
 .home-footer {
@@ -211,7 +242,7 @@
 
 .card-title {
     background-color: #3C6255;
-    color: #D6CDA4;
+    color: white;
     font-size: medium;
     font-family: Roboto-Thin;
     font-weight: bold;
@@ -269,3 +300,5 @@ body::-webkit-scrollbar {
     background-color: #5c9b85;
     outline: 1px solid #3C6255;
   }
+
+  
