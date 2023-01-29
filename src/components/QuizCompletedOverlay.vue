@@ -30,7 +30,7 @@
         
         
         <v-col cols="12" class="flex justify-evenly items-start">
-          <p class="done"> Done </p>
+          <p class="done" @click="$emit('goHome')"> Done </p>
           <p class="try_again"  @click="$emit('restartQuiz')">
            Retake
           </p>

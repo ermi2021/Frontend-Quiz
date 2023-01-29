@@ -1,12 +1,13 @@
 <template>
-
-  <v-overlay class="flex justify-center items-center bg-green-700 bg-opacity-80" v-model="endofQuiz">
+  <v-overlay
+    class="flex justify-center items-center bg-green-700 bg-opacity-80"
+    v-model="endofQuiz"
+  >
     <quiz-completed-overlay
-   
-    :percent="percentageScore"
-    @restartQuiz="onQuizStart"
-  ></quiz-completed-overlay>
-
+      :percent="percentageScore"
+      @restartQuiz="onQuizStart"
+      @goHome="goHome"
+    ></quiz-completed-overlay>
   </v-overlay>
   <!-- Quiz overlay -->
   <v-app class="relative">
@@ -290,6 +291,10 @@ export default {
       fetchQuestionsFromApi();
     };
 
+    const goHome = function () {
+      router.push({ name: "Home" });
+    };
+
     //lifecycle hooks
     onMounted(() => {
       fetchQuestionsFromApi();
@@ -310,6 +315,7 @@ export default {
       percentageScore,
       onQuizStart,
       catagoryStore,
+      goHome,
     };
   },
 

@@ -203,6 +203,17 @@
     
 }
 
+.my-link{
+    @apply mb-1 text-start absolute bottom-5 ml-5;
+    font-family: Roboto-Light;
+    color: white;
+    font-size: 16px;
+}
+.mysite_link{
+    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% );
+    color: #D6CDA4;
+    @apply  px-2 py-1 rounded-md font-semibold;
+}
 .home-footer {
     background-color: #3C6255;
 }
@@ -220,7 +231,7 @@
 .quote {
     font-family: Roboto-Light;
     margin-top: 16px;
-    font-size: smaller;
+    font-size: 18px;
     font-weight: 100;
     margin-left: 20px;
     color: #D6CDA4;

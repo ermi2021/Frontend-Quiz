@@ -6,8 +6,8 @@
           <v-col class="flex align-start justify-center flex-col text-wrapper relative" cols="12">
             <p style="font-size:70px;">Hello 👋</p>
             <p style="font-size:50px">Welcome to your Quiz.</p>
-            <h5 class="quote" style="font-size:25px">Unlock your knowledge at the speed of your thought</h5>
-            <h6 class="absolute bottom-1 by text-center">Designed &amp; built by <br/> <a href="https://www.ermidev.com" target="_blank">Ermiyas Zeleke</a> </h6>
+            <h5 class="quote">"Unlock your knowledge at the speed of your thought"</h5>
+            <h6 class="my-link">Designed &amp; built by <br/> <a href="https://www.ermidev.com" class="mysite_link" target="_blank">Ermiyas Zeleke</a> </h6>
           </v-col>
         </v-row>
        
