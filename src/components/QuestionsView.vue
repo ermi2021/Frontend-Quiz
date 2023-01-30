@@ -175,7 +175,10 @@ export default {
       if (questions.value.length > questionCounter.value) {
         // load questions
         timer.value = 30;
-        currentQuestion.value = questions.value[questionCounter.value];
+        
+        currentQuestion.value.choices = formatOptions(questions.value[questionCounter.value].choices);
+        currentQuestion.value.question = questions.value[questionCounter.value].question;
+       
         questionCounter.value++;
       } else {
         //no more questions
@@ -191,6 +194,47 @@ export default {
         itemRef.push(element);
       }
     };
+     
+    const formatOptions = (choices) => {
+      console.log(choices);
+      let formatedChoices = [];
+      let entities = {
+        amp: "&",
+        apos: "'",
+        "#x27": "'",
+        "#x2F": "/",
+        "#39": "'",
+        "#47": "/",
+        lt: "<",
+        gt: ">",
+        nbsp: " ",
+        quot: '"',
+        "#039": "'",
+        cent: "¢",
+        pound: "£",
+        copy: "©",
+        laquo: "«",
+        raquo: "»",
+        ldquo: "“",
+        rdquo: "”",
+        bdquo: "„",
+        lt: "<",
+        gt: ">",
+      };
+   
+       choices.forEach(choice => {
+
+        console.log("before", choice);
+        let formatedChoice = choice.replace(/&([^;]+);/gm, function (match, entity) {
+           return entities[entity] || match;
+         });
+         formatedChoices.push(formatedChoice);
+         console.log("after", choice);
+       });
+
+       return formatedChoices;
+
+    }
 
     const clearSelected = (divSelected) => {
       setTimeout(() => {
