@@ -181,6 +181,7 @@
     background-image: radial-gradient(circle 759px at -6.7% 50%, rgba(80, 131, 73, 1) 0%, rgba(80, 131, 73, 1) 74.1%, rgba(80, 131, 73, 1) 100.3%);
     color: #D6CDA4;
     font-weight: bold;
+    @apply animate-bounce;
 }
 
 .option-correct div:nth-child(1) {

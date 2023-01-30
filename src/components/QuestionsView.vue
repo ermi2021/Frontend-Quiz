@@ -178,7 +178,7 @@ export default {
         
         currentQuestion.value.choices = formatOptions(questions.value[questionCounter.value].choices);
         currentQuestion.value.question = questions.value[questionCounter.value].question;
-       
+        console.log("The Question ", questions.value);
         questionCounter.value++;
       } else {
         //no more questions
@@ -231,7 +231,7 @@ export default {
          formatedChoices.push(formatedChoice);
          console.log("after", choice);
        });
-
+      console.log("formated choices",formatedChoices);
        return formatedChoices;
 
     }
@@ -247,7 +247,7 @@ export default {
     const onOptionClicked = (event, item) => {
       if (canClick) {
         const divContainer = event.target;
-        const optionId = item++;
+        const optionId = item;
         if (currentQuestion.value.answer == optionId) {
           score.value += 10;
           event.target.classList.add("option-correct");
