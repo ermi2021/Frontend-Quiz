@@ -19,15 +19,17 @@
     src: url(../font/Roboto-Thin.ttf);
 }
 
-::-moz-selection { /* Code for Firefox */
+::-moz-selection {
+    /* Code for Firefox */
     color: white;
     background: #3C6255;
-  }
-  
-  ::selection {
+}
+
+::selection {
     color: white;
     background: #5c9b85;
-  }
+}
+
 /* custom styles here */
 
 .countdown-wrapper {
@@ -37,20 +39,20 @@
     background-size: cover;
 }
 
-.score_container{
+.score_container {
     position: absolute;
     top: 0;
-    right:0;
+    right: 0;
     padding: 30px;
     @apply shadow-md;
-    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% );
+    background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(14, 174, 87, 1) 0%, rgba(12, 116, 117, 1) 90%);
 }
 
 .score_text {
-   font-family: Roboto-Bold;
-   font-size: 35px;
-   color: #D6CDA4;
-   text-align: center;
+    font-family: Roboto-Bold;
+    font-size: 35px;
+    color: #D6CDA4;
+    text-align: center;
 }
 
 .score {
@@ -62,20 +64,20 @@
 
 
 
-.timer_container{
+.timer_container {
     position: absolute;
     top: 0;
-    right:auto;
+    right: auto;
     padding: 30px;
     @apply shadow-md;
-    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% );
+    background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(14, 174, 87, 1) 0%, rgba(12, 116, 117, 1) 90%);
 }
 
 .timer_text {
-   font-family: Roboto-Bold;
-   font-size: 35px;
-   color: #D6CDA4;
-   text-align: center;
+    font-family: Roboto-Bold;
+    font-size: 35px;
+    color: #D6CDA4;
+    text-align: center;
 }
 
 .time_left {
@@ -113,23 +115,21 @@
 /* Questions view styles */
 
 /* default option */
+.option-default div:nth-child(1) {
+    @apply hidden;
+}
+
+
 .option-default {
     background-image: linear-gradient(102deg, rgba(68, 110, 92, 1) 49.3%, rgba(68, 110, 92, 1) 83.4%, rgba(68, 110, 92, 1) 110.3%);
     font-size: larger;
     color: white;
     font-family: Roboto-light;
-    @apply rounded-lg hover:drop-shadow-lg;
+    @apply rounded-lg hover:drop-shadow-lg h-full w-full flex items-center justify-center cursor-pointer pl-6 relative;
 }
 
-.option-default div:nth-child(1) {
-    @apply hidden;
-}
 
-.option-default div:nth-child(2) div:nth-child(1) {
-    @apply inline;
-    color: #D6CDA4;
-    font-size: large;
-}
+
 .congratualtion {
     @apply text-center animate-pulse delay-1000 rounded-md px-10 py-3;
     color: whitesmoke;
@@ -146,15 +146,16 @@
     font-family: Roboto-Bold;
 }
 .done {
-    @apply w-full  px-10 mx-5 py-2 rounded-md hover:drop-shadow-lg font-bold cursor-pointer;
-    background-image: linear-gradient( 106.9deg,  rgba(148,14,60,1) 60.9%, rgba(3,22,27,1) 122.3% );
+    @apply w-full px-10 mx-5 py-2 rounded-md hover:drop-shadow-lg font-bold cursor-pointer;
+    background-image: linear-gradient(106.9deg, rgba(148, 14, 60, 1) 60.9%, rgba(3, 22, 27, 1) 122.3%);
     font-size: 20px;
     color: #D6CDA4;
     text-align: center;
 }
+
 .try_again {
-    @apply w-fit px-10  py-2 rounded-md hover:drop-shadow-lg font-bold cursor-pointer;
-    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% );
+    @apply w-fit px-10 py-2 rounded-md hover:drop-shadow-lg font-bold cursor-pointer;
+    background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(14, 174, 87, 1) 0%, rgba(12, 116, 117, 1) 90%);
     font-size: 20px;
     text-align: center;
     color: #D6CDA4;
@@ -168,7 +169,7 @@
 }
 
 .option-wrong div:nth-child(1) {
-    @apply hidden animate-ping;
+    @apply hidden;
 }
 
 .option-wrong div:nth-child(2) div:nth-child(1) {
@@ -178,14 +179,34 @@
 
 /* correct option */
 .option-correct {
-    background-image: radial-gradient(circle 759px at -6.7% 50%, rgba(80, 131, 73, 1) 0%, rgba(80, 131, 73, 1) 74.1%, rgba(80, 131, 73, 1) 100.3%);
+    background-color: greenyellow;
     color: #D6CDA4;
     font-weight: bold;
-    @apply animate-bounce;
+
 }
 
-.option-correct div:nth-child(1) {
+.correction{
+    @apply rounded-lg hover:drop-shadow-lg h-full w-full flex items-center justify-center cursor-pointer pl-6 relative;   
+    color: #D6CDA4;
+    font-weight: bold;
+    background-color: #1D976C;
+
+
+}
+.correction div:nth-child(1){
+    @apply hidden;
+}
+.correction div:nth-child(2) div:nth-child(1) {
     @apply inline;
+    color: #D6CDA4;
+}
+
+
+.option-correct div:nth-child(1) {
+    @apply inline animate-pulse shadow-lg  p-1 transform w-20 h-full text-white font-bold absolute right-0 top-0 flex justify-center items-center;
+    background-color: #F4D03F;
+    background-image: linear-gradient(132deg, #F4D03F 0%, #16A085 100%);
+
 }
 
 .option-correct div:nth-child(2) div:nth-child(1) {
@@ -201,20 +222,22 @@
 .side-bar {
     background-color: #d6cda4;
     background-image: linear-gradient(137deg, #d6cda4 0%, #61876e 37%, #3c6255 100%);
-    
+
 }
 
-.my-link{
+.my-link {
     @apply mb-1 text-start absolute bottom-5 ml-5;
     font-family: Roboto-Light;
     color: white;
     font-size: 16px;
 }
-.mysite_link{
-    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% );
+
+.mysite_link {
+    background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(14, 174, 87, 1) 0%, rgba(12, 116, 117, 1) 90%);
     color: #D6CDA4;
-    @apply  px-2 py-1 rounded-md font-semibold;
+    @apply px-2 py-1 rounded-md font-semibold;
 }
+
 .home-footer {
     background-color: #3C6255;
 }
@@ -302,15 +325,13 @@ body {
 
 body::-webkit-scrollbar {
     width: .5em;
-  }
-   
-  body::-webkit-scrollbar-track {
+}
+
+body::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px #61876E;
-  }
-   
-  body::-webkit-scrollbar-thumb {
+}
+
+body::-webkit-scrollbar-thumb {
     background-color: #5c9b85;
     outline: 1px solid #3C6255;
-  }
-
-  
+}

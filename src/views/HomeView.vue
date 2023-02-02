@@ -51,7 +51,7 @@
 <script>
 import router from "../router";
 import 'animate.css';
-import useCatagoryStore  from "../stores/catagoryStore";
+import {useCatagoryStore}  from "../stores/catagoryStore";
 
 export default {
   setup() {

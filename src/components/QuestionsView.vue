@@ -1,7 +1,11 @@
 <template>
   <v-overlay
+    close-on-content-click="false"
     class="flex justify-center items-center bg-green-700 bg-opacity-80"
     v-model="endofQuiz"
+    :value="endofQuiz"
+    absolute
+
   >
     <quiz-completed-overlay
       :percent="percentageScore"
@@ -20,14 +24,7 @@
       <p class="font-bold time_left">{{ timer }}</p>
     </div>
     <v-main
-      class="
-        px-auto
-        Questions_wrapper
-        w-full
-        d-flex
-        items-center
-        justify-around
-      "
+      class="px-auto Questions_wrapper w-full d-flex items-center justify-around"
     >
       <!-- contents -->
       <!-- <div class="relative z-20">
@@ -43,54 +40,22 @@
         </v-col>
 
         <v-col
-          class="mr-3 mt-2 h-32 d-flex items-center justify-center"
+          class="mr-3 mt-2 h-32 d-flex items-center justify-center choice_container"
           v-for="(choice, item) in currentQuestion.choices"
           :key="choice"
           cols="5"
+          
         >
           <div
-            class="
-              option-default
-              h-full
-              w-full
-              d-flex
-              items-center
-              justify-center
-              cursor-pointer
-              pl-6
-              relative
-            "
+            class="option-default"
             @click="onOptionClicked($event, item)"
           >
             <div
-              class="
-                bg-green-500
-                p-1
-                transform
-                rotate-45
-                rounded-md
-                w-20
-                h-20
-                text-white
-                font-bold
-                absolute
-                right-0
-                top-0
-                shadow-md
-              "
+              class=""
             >
-              <p
-                class="
-                  transform
-                  -rotate-45
-                  align-middle
-                  animate-pulse
-                  mt-3
-                  text-center
-                "
-              >
+             
                 +10
-              </p>
+              
             </div>
             {{ choice }}
           </div>
@@ -141,146 +106,155 @@
 </style>
 
 <script>
-import { onMounted, ref, toRefs } from "vue";
-import { useRoute } from "vue-router";
-import { useCatagoryStore } from "../stores/catagoryStore";
-import QuizCompletedOverlay from "../components/QuizCompletedOverlay.vue";
-import router from "../router";
-import { defineProps, reactive } from "vue";
+import { onMounted, ref, toRefs } from 'vue'
+import { useRoute } from 'vue-router'
+import { useCatagoryStore } from '../stores/catagoryStore'
+import QuizCompletedOverlay from '../components/QuizCompletedOverlay.vue'
+import router from '../router'
+import { defineProps, reactive } from 'vue'
 export default {
   components: { QuizCompletedOverlay },
   setup() {
     //data
-    const catagoryStore = useCatagoryStore();
-    const route = useRoute();
-    let canClick = true;
-    let timer = ref(30);
-    let endofQuiz = ref(false);
-    let questionCounter = ref(0);
-    let score = ref(0);
+    const catagoryStore = useCatagoryStore()
+    const route = useRoute()
+    let canClick = true
+    let timer = ref(30)
+    let endofQuiz = ref(false)
+    let questionCounter = ref(0)
+    let score = ref(0)
 
     const currentQuestion = ref({
       answer: 1,
       choices: [],
-      question: "",
-    });
+      question: '',
+    })
 
-    let percentageScore = ref(0);
+    let percentageScore = ref(0)
 
-    const questions = ref([]);
+    const questions = ref([])
 
     const loadQuestion = () => {
-      canClick = true;
+      canClick = true
       //check if there are more questions to load
       if (questions.value.length > questionCounter.value) {
         // load questions
-        timer.value = 30;
-        
-        currentQuestion.value.choices = formatOptions(questions.value[questionCounter.value].choices);
-        currentQuestion.value.question = questions.value[questionCounter.value].question;
-        console.log("The Question ", questions.value);
-        questionCounter.value++;
+        timer.value = 30
+
+        currentQuestion.value.choices = formatOptions(
+          questions.value[questionCounter.value].choices
+        )
+        currentQuestion.value.question =
+          questions.value[questionCounter.value].question
+        currentQuestion.value.answer =
+          questions.value[questionCounter.value].answer
+        console.log('The Question ', currentQuestion.value)
+        questionCounter.value++
       } else {
         //no more questions
-        endofQuiz.value = true;
-        onQuizEnd();
+        endofQuiz.value = true
+        onQuizEnd()
       }
-    };
+    }
 
     //methods
-    let itemRef = [];
+    let itemRef = []
     const optionChosen = (element) => {
       if (element) {
-        itemRef.push(element);
+        itemRef.push(element)
       }
-    };
-     
+    }
+
     const formatOptions = (choices) => {
-      console.log(choices);
-      let formatedChoices = [];
+      console.log(choices)
+      let formatedChoices = []
       let entities = {
-        amp: "&",
+        amp: '&',
         apos: "'",
-        "#x27": "'",
-        "#x2F": "/",
-        "#39": "'",
-        "#47": "/",
-        lt: "<",
-        gt: ">",
-        nbsp: " ",
+        '#x27': "'",
+        '#x2F': '/',
+        '#39': "'",
+        '#47': '/',
+        lt: '<',
+        gt: '>',
+        nbsp: ' ',
         quot: '"',
-        "#039": "'",
-        cent: "¢",
-        pound: "£",
-        copy: "©",
-        laquo: "«",
-        raquo: "»",
-        ldquo: "“",
-        rdquo: "”",
-        bdquo: "„",
-        lt: "<",
-        gt: ">",
-      };
-   
-       choices.forEach(choice => {
+        '#039': "'",
+        cent: '¢',
+        pound: '£',
+        copy: '©',
+        laquo: '«',
+        raquo: '»',
+        ldquo: '“',
+        rdquo: '”',
+        bdquo: '„',
+        lt: '<',
+        gt: '>',
+      }
 
-        console.log("before", choice);
-        let formatedChoice = choice.replace(/&([^;]+);/gm, function (match, entity) {
-           return entities[entity] || match;
-         });
-         formatedChoices.push(formatedChoice);
-         console.log("after", choice);
-       });
-      console.log("formated choices",formatedChoices);
-       return formatedChoices;
-
+      choices.forEach((choice) => {
+        console.log('before', choice)
+        let formatedChoice = choice.replace(
+          /&([^;]+);/gm,
+          function (match, entity) {
+            return entities[entity] || match
+          }
+        )
+        formatedChoices.push(formatedChoice)
+        console.log('after', choice)
+      })
+      console.log('formated choices', formatedChoices)
+      return formatedChoices
     }
 
     const clearSelected = (divSelected) => {
       setTimeout(() => {
-        divSelected.classList.add("option-default");
-        divSelected.classList.remove("option-wrong");
-        divSelected.classList.remove("option-correct");
-        loadQuestion();
-      }, 1500);
-    };
+        divSelected.classList.add('option-default')
+        divSelected.classList.remove('option-wrong')
+        divSelected.classList.remove('option-correct')
+        loadQuestion()
+      }, 2000)
+    }
     const onOptionClicked = (event, item) => {
       if (canClick) {
-        const divContainer = event.target;
-        const optionId = item;
+        const divContainer = event.target
+        const optionId = item
         if (currentQuestion.value.answer == optionId) {
-          score.value += 10;
-          event.target.classList.add("option-correct");
+          score.value += 10
+          event.target.classList.add('option-correct')
         } else {
-          event.target.classList.add("option-wrong");
+          event.target.classList.add('option-wrong')
+          let correctAnswer = document.getElementsByClassName('option-default')[currentQuestion.value.answer];
+          correctAnswer.classList.remove('option-default');
+          correctAnswer.classList.add('correction');
         }
 
-        timer.value = 30;
-        canClick = false;
+        timer.value = 30
+        canClick = false
         //Goto next question
 
-        clearSelected(divContainer);
+        clearSelected(divContainer)
       } else {
         // Cant select option
-        console.log("cant select an option");
+        console.log('cant select an option')
       }
-    };
+    }
 
     const countDownTimer = function () {
       let interval = setInterval(() => {
         if (timer.value > 0) {
-          timer.value--;
+          timer.value--
         } else {
-          onQuizEnd();
-          clearInterval(interval);
+          onQuizEnd()
+          clearInterval(interval)
         }
-      }, 1000);
-    };
+      }, 1000)
+    }
 
     const fetchQuestionsFromApi = async function () {
       fetch(catagoryStore.selectedCatagory.url)
         .then((res) => {
-          return res.json();
+          return res.json()
         })
         .then((data) => {
           // map json
@@ -288,72 +262,72 @@ export default {
             const arrangedQuestion = {
               question: apiQuestion.question,
               choices: [],
-              answer: "",
-            };
+              answer: '',
+            }
 
-            const choices = apiQuestion.incorrect_answers;
+            const choices = apiQuestion.incorrect_answers
 
-            arrangedQuestion.answer = Math.floor(Math.random() * 3 + 1);
+            arrangedQuestion.answer = Math.floor(Math.random() * 3 + 1)
 
             choices.splice(
               arrangedQuestion.answer,
               0,
               apiQuestion.correct_answer
-            );
+            )
 
-            arrangedQuestion.choices = choices;
+            arrangedQuestion.choices = choices
 
-            return arrangedQuestion;
-          });
+            return arrangedQuestion
+          })
 
-          questions.value = newQuestions;
+          questions.value = newQuestions
 
-          loadQuestion();
-          countDownTimer();
-        });
-    };
+          loadQuestion()
+          countDownTimer()
+        })
+    }
 
     const onQuizEnd = function () {
       // calculate the score
-      percentageScore.value = (score.value / 100) * 100;
+      percentageScore.value = (score.value / 100) * 100
 
       //stop timer
-      timer.value = 0;
+      timer.value = 0
 
       //show overlay
-      endofQuiz.value = true;
-    };
+      endofQuiz.value = true
+    }
 
     const onQuizStart = function () {
       //set default values
-      canClick = true;
-      timer.value = 30;
-      endofQuiz.value = false;
-      questionCounter.value = 0;
-      score.value = 0;
+      canClick = true
+      timer.value = 30
+      endofQuiz.value = false
+      questionCounter.value = 0
+      score.value = 0
       currentQuestion.value = {
         answer: 1,
         choices: [],
-        question: "",
-      };
+        question: '',
+      }
 
-      percentageScore.value = 0;
+      percentageScore.value = 0
 
-      questions.value = [];
+      questions.value = []
 
       //fetch questions from server
 
-      fetchQuestionsFromApi();
-    };
+      fetchQuestionsFromApi()
+    }
 
     const goHome = function () {
-      router.push({ name: "Home" });
-    };
+      router.push({ name: 'Home' })
+    }
 
     //lifecycle hooks
     onMounted(() => {
-      fetchQuestionsFromApi();
-    });
+      fetchQuestionsFromApi()
+    })
 
     // return
     return {
@@ -371,73 +345,73 @@ export default {
       onQuizStart,
       catagoryStore,
       goHome,
-    };
+    }
   },
 
   computed: {
     formattedQuestion() {
       let entities = {
-        amp: "&",
+        amp: '&',
         apos: "'",
-        "#x27": "'",
-        "#x2F": "/",
-        "#39": "'",
-        "#47": "/",
-        lt: "<",
-        gt: ">",
-        nbsp: " ",
+        '#x27': "'",
+        '#x2F': '/',
+        '#39': "'",
+        '#47': '/',
+        lt: '<',
+        gt: '>',
+        nbsp: ' ',
         quot: '"',
-        "#039": "'",
-        cent: "¢",
-        pound: "£",
-        copy: "©",
-        laquo: "«",
-        raquo: "»",
-        ldquo: "“",
-        rdquo: "”",
-        bdquo: "„",
-        lt: "<",
-        gt: ">",
-      };
+        '#039': "'",
+        cent: '¢',
+        pound: '£',
+        copy: '©',
+        laquo: '«',
+        raquo: '»',
+        ldquo: '“',
+        rdquo: '”',
+        bdquo: '„',
+        lt: '<',
+        gt: '>',
+      }
       return this.currentQuestion.question.replace(
         /&([^;]+);/gm,
         function (match, entity) {
-          return entities[entity] || match;
+          return entities[entity] || match
         }
-      );
+      )
     },
     formattedOption(choice) {
       let entities = {
-        amp: "&",
+        amp: '&',
         apos: "'",
-        "#x27": "'",
-        "#x2F": "/",
-        "#39": "'",
-        "#47": "/",
-        lt: "<",
-        gt: ">",
-        nbsp: " ",
+        '#x27': "'",
+        '#x2F': '/',
+        '#39': "'",
+        '#47': '/',
+        lt: '<',
+        gt: '>',
+        nbsp: ' ',
         quot: '"',
-        "#039": "'",
-        cent: "¢",
-        pound: "£",
-        copy: "©",
-        laquo: "«",
-        raquo: "»",
-        ldquo: "“",
-        rdquo: "”",
-        bdquo: "„",
-        lt: "<",
-        gt: ">",
-      };
+        '#039': "'",
+        cent: '¢',
+        pound: '£',
+        copy: '©',
+        laquo: '«',
+        raquo: '»',
+        ldquo: '“',
+        rdquo: '”',
+        bdquo: '„',
+        lt: '<',
+        gt: '>',
+      }
       return choice.replace(/&([^;]+);/gm, function (match, entity) {
-        return entities[entity] || match;
-      });
+        return entities[entity] || match
+      })
     },
   },
 
   components: {
     QuizCompletedOverlay,
   },
-};
+}
 </script>
