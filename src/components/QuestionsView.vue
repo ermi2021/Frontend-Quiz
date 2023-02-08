@@ -1,18 +1,21 @@
 <template>
-  <v-overlay
-    close-on-content-click="false"
-    class="flex justify-center items-center bg-green-700 bg-opacity-80"
+  <v-dialog
     v-model="endofQuiz"
-    :value="endofQuiz"
-    absolute
-
+    persistent
+    class="rounded-lg flex items-center justify-center"
   >
+  <ConfettiExplosion
+          :particleCount="500"
+          :force="0.7"
+          :stageHeight="800"
+        
+        />
     <quiz-completed-overlay
       :percent="percentageScore"
       @restartQuiz="onQuizStart"
       @goHome="goHome"
     ></quiz-completed-overlay>
-  </v-overlay>
+  </v-dialog>
   <!-- Quiz overlay -->
   <v-app class="relative">
     <div class="text-right text-gray-800 score_container">
@@ -44,19 +47,9 @@
           v-for="(choice, item) in currentQuestion.choices"
           :key="choice"
           cols="5"
-          
         >
-          <div
-            class="option-default"
-            @click="onOptionClicked($event, item)"
-          >
-            <div
-              class=""
-            >
-             
-                +10
-              
-            </div>
+          <div class="option-default" @click="onOptionClicked($event, item)">
+            <div class="">+10</div>
             {{ choice }}
           </div>
         </v-col>
@@ -224,9 +217,12 @@ export default {
           event.target.classList.add('option-correct')
         } else {
           event.target.classList.add('option-wrong')
-          let correctAnswer = document.getElementsByClassName('option-default')[currentQuestion.value.answer];
-          correctAnswer.classList.remove('option-default');
-          correctAnswer.classList.add('correction');
+          let correctAnswer =
+            document.getElementsByClassName('option-default')[
+              currentQuestion.value.answer
+            ]
+          correctAnswer.classList.remove('option-default')
+          correctAnswer.classList.add('correction')
         }
 
         timer.value = 30
@@ -336,8 +332,6 @@ export default {
       questions,
       questionCounter,
       loadQuestion,
-      onOptionClicked,
-      optionChosen,
       score,
       endofQuiz,
       onQuizEnd,
